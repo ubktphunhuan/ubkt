@@ -201,8 +201,10 @@ tbody tr:hover{background:var(--gold-soft);}
 .faq-q svg{width:14px;height:14px;flex-shrink:0;transition:transform .15s;color:var(--ink-soft);}
 .faq-item.open .faq-q svg{transform:rotate(180deg);}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .2s ease;font-size:13px;color:var(--ink-soft);line-height:1.6;}
-.faq-item.open .faq-a{max-height:400px;}
+.faq-item.open .faq-a{max-height:2400px;}
 .faq-a-inner{padding:0 16px 15px;}
+.faq-a-line{margin:0 0 8px;}
+.faq-a-line:last-of-type{margin-bottom:0;}
 .faq-topic{display:inline-block;font-size:10.5px;color:var(--red-dark);background:var(--gold-soft);padding:2px 8px;border-radius:10px;margin-top:8px;}
 
 /* Lich cong viec */
@@ -903,11 +905,35 @@ async function renderKinhNghiem(sec){
 }
 
 /* ---------- CÂU HỎI NGHIỆP VỤ ---------- */
+function groupQuestions(rows){
+  // Giống cách làm ở Quy trình nghiệp vụ: chỉ dòng đầu tiên của mỗi câu hỏi
+  // ghi CauHoi/ChuDe/CanCuPhapLy; các dòng tiếp theo để trống CauHoi, chỉ
+  // điền CauTraLoi — được nối tiếp làm các dòng trả lời con của câu hỏi đó.
+  const groups = [];
+  let cur = null;
+  rows.forEach(r=>{
+    const cauhoi = (r.CauHoi||"").toString().trim();
+    if(cauhoi){
+      cur = { cauhoi, chude: r.ChuDe||"", cancu: r.CanCuPhapLy||"", lines: [] };
+      groups.push(cur);
+    }
+    if(!cur){
+      cur = { cauhoi:"", chude: r.ChuDe||"", cancu: r.CanCuPhapLy||"", lines: [] };
+      groups.push(cur);
+    }
+    if(r.ChuDe && !cur.chude) cur.chude = r.ChuDe;
+    if(r.CanCuPhapLy && !cur.cancu) cur.cancu = r.CanCuPhapLy;
+    if(r.CauTraLoi) cur.lines.push(r.CauTraLoi);
+  });
+  return groups;
+}
+
 async function renderCauHoi(sec){
   const rows = await fetchSheet(CONFIG.SHEETS.cauhoi);
-  const topics = [...new Set(rows.map(r=>r.ChuDe).filter(Boolean))];
+  const groupsAll = groupQuestions(rows);
+  const topics = [...new Set(groupsAll.map(g=>g.chude).filter(Boolean))];
   sec.innerHTML = `
-    <p class="lede">Bộ câu hỏi thường gặp trong nghiệp vụ kiểm tra, giám sát (${rows.length} câu hỏi). Gõ từ khóa vào ô tìm kiếm phía trên để lọc.</p>
+    <p class="lede">Bộ câu hỏi thường gặp trong nghiệp vụ kiểm tra, giám sát (${groupsAll.length} câu hỏi). Gõ từ khóa vào ô tìm kiếm phía trên để lọc.</p>
     <div class="toolbar">
       <select class="filter" id="f-chude"><option value="">Tất cả chủ đề</option>${topics.map(v=>`<option>${esc(v)}</option>`).join("")}</select>
     </div>
@@ -916,16 +942,16 @@ async function renderCauHoi(sec){
   const draw = ()=>{
     const q = getSearchQuery();
     const ct = document.getElementById("f-chude").value;
-    const filtered = rows.filter(r=> (!ct||r.ChuDe===ct) && matchAny([r.CauHoi, r.CauTraLoi], q));
-    document.getElementById("ch-list").innerHTML = filtered.length ? filtered.map((r,i)=>`
+    const filtered = groupsAll.filter(g=> (!ct||g.chude===ct) && matchAny([g.cauhoi, ...g.lines], q));
+    document.getElementById("ch-list").innerHTML = filtered.length ? filtered.map((g)=>`
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>${esc(r.CauHoi)}</span>${ICONS.chevron}
+          <span>${esc(g.cauhoi)}</span>${ICONS.chevron}
         </div>
         <div class="faq-a"><div class="faq-a-inner">
-          ${esc(r.CauTraLoi)}
-          ${r.CanCuPhapLy ? `<div style="margin-top:6px;color:var(--ink-soft);font-size:11.5px">Căn cứ: ${esc(r.CanCuPhapLy)}</div>` : ""}
-          ${r.ChuDe ? `<span class="faq-topic">${esc(r.ChuDe)}</span>` : ""}
+          ${g.lines.map(line=>`<p class="faq-a-line">${esc(line).replace(/\n/g,"<br>")}</p>`).join("")}
+          ${g.cancu ? `<div style="margin-top:6px;color:var(--ink-soft);font-size:11.5px">Căn cứ: ${esc(g.cancu)}</div>` : ""}
+          ${g.chude ? `<span class="faq-topic">${esc(g.chude)}</span>` : ""}
         </div></div>
       </div>`).join("") : `<div class="empty">Không tìm thấy câu hỏi phù hợp.</div>`;
   };
