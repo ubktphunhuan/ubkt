@@ -3,31 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ủy ban Kiểm tra Đảng ủy phường Cầu Kiệu</title>
+<title>Ủy ban Kiểm tra Đảng ủy phường Phú Nhuận</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#1B3A6B;
-  --red-dark:#14294F;
-  --red-deep:#0D1D38;
-  --gold:#D9A441;
-  --gold-deep:#C08E30;
-  --gold-soft:#F4E6C9;
+  --red:#c1272d;
+  --red-dark:#8f1418;
+  --red-deep:#6e0f13;
+  --gold:#ffd54a;
+  --gold-deep:#e0ac16;
+  --gold-soft:#fdf0c8;
   --ink:#201c1a;
   --ink-soft:#6b625a;
   --paper:#ffffff;
-  --paper-2:#F4F6F9;
+  --paper-2:#f7f4ec;
   --card:#ffffff;
-  --line:#E2E6ED;
+  --line:#eae3d3;
   --green:#3f6b4f;
   --green-bg:#e7f0e9;
   --amber:#9a6b23;
   --amber-bg:#f5ecd8;
-  --danger:#B3282D;
+  --danger:#a3311f;
   --danger-bg:#f7e6e2;
   --gray-bg:#f1ede2;
-  --stripe:#F1F3F7;
+  --stripe:#f3f2ee;
   --radius:10px;
   --sidebar-w:250px;
   --topbar-strip-h:92px;
@@ -39,41 +39,50 @@ a{color:inherit;}
 button,select,input{font-family:inherit;}
 
 /* ===== Layout ===== */
-.app{display:flex;flex-direction:column;min-height:100vh;}
-.site-header{
-  background:var(--red-dark);color:#f2e9d8;padding:16px 32px;
-  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;
+.app{display:flex;min-height:100vh;}
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;background:var(--red-dark);
+  color:#f2e9d8;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;
+  display:flex;flex-direction:column;
 }
-.site-sticky-top{position:sticky;top:0;z-index:8;}
-.site-header-brand{display:flex;align-items:center;gap:14px;}
-.site-header-tagline{font-family:'Noto Serif',serif;font-size:19px;font-weight:700;letter-spacing:.3px;
-  color:#ffffff;text-align:center;line-height:1.35;max-width:640px;justify-self:center;}
-.site-header-right{display:flex;align-items:center;justify-content:flex-end;gap:22px;flex-wrap:wrap;}
-.site-logo{height:56px;width:auto;object-fit:contain;flex-shrink:0;}
-.site-title{font-family:'Noto Serif',serif;font-weight:700;font-size:18px;line-height:1.35;letter-spacing:.3px;text-transform:uppercase;color:var(--gold);}
-.site-header-right .clock{display:flex;align-items:center;gap:9px;font-size:13px;font-variant-numeric:tabular-nums;opacity:.95;color:#f2e9d8;flex-shrink:0;}
-.site-header-right .clock svg{width:16px;height:16px;opacity:.9;}
-.site-header-right .clock b{font-weight:600;font-size:14.5px;}
+.brand{padding:26px 20px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,.12);}
+.stamp{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 12px;
+  border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.stamp::before{
+  content:"";position:absolute;inset:5px;border:1px solid var(--gold);border-radius:50%;
+}
+.stamp span{font-family:'Noto Serif',serif;font-weight:700;font-size:15px;color:var(--gold);letter-spacing:1px;}
+.brand-title{font-size:13.5px;font-weight:600;line-height:1.4;font-family:'Noto Serif',serif;}
 
-.tab-nav{
-  background:var(--red);display:flex;flex-wrap:wrap;gap:2px;padding:0 24px;
-  border-bottom:2px solid var(--gold-deep);
-}
+nav{padding:14px 10px;flex:1;}
 .nav-item{
-  display:flex;align-items:center;gap:8px;padding:13px 16px;border-radius:0;
-  font-size:12.5px;color:#e7dcc4;cursor:pointer;transition:background .15s;
-  border:none;background:none;white-space:nowrap;
+  display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;
+  font-size:13px;color:#e7dcc4;cursor:pointer;margin-bottom:2px;transition:background .15s;
+  border:none;background:none;width:100%;text-align:left;
 }
-.nav-item svg{flex-shrink:0;width:16px;height:16px;opacity:.85;}
-.nav-item:hover{background:rgba(255,255,255,.1);}
+.nav-item svg{flex-shrink:0;width:17px;height:17px;opacity:.85;}
+.nav-item:hover{background:rgba(255,255,255,.08);}
 .nav-item.active{background:var(--gold);color:var(--red-dark);font-weight:600;}
 .nav-item.active svg{opacity:1;}
+.sidebar-foot{padding:14px 20px;font-size:10.5px;color:rgba(242,233,216,.55);border-top:1px solid rgba(255,255,255,.1);}
 
-.main{flex:1;min-width:0;}
+.main{margin-left:var(--sidebar-w);flex:1;min-width:0;}
+
+.topbar-strip{
+  height:var(--topbar-strip-h);background:var(--red);color:#fff;display:flex;align-items:center;
+  justify-content:space-between;padding:0 32px;letter-spacing:.2px;position:sticky;top:0;z-index:6;
+}
+.topbar-strip .tagline{font-family:'Noto Serif',serif;font-size:25px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);}
+.topbar-strip .clock{display:flex;align-items:center;gap:9px;font-size:14px;font-variant-numeric:tabular-nums;opacity:.95;}
+.topbar-strip .clock svg{width:16px;height:16px;opacity:.9;}
+.topbar-strip .clock b{font-weight:600;font-size:16px;}
 
 .topbar{
   background:var(--card);border-bottom:1px solid var(--line);padding:14px 32px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:5;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:var(--topbar-strip-h);z-index:5;
 }
 .topbar-left{display:flex;align-items:center;gap:12px;}
 .topbar-left .rule{width:4px;height:24px;background:var(--gold-deep);border-radius:2px;}
@@ -154,50 +163,10 @@ tbody tr:hover{background:var(--gold-soft);}
 
 /* Home */
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px;}
-
-.contact-hero{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-.contact-info h3{margin:0 0 14px;font-size:16px;color:var(--red-dark);font-family:'Noto Serif',serif;}
-.contact-info dl{margin:0;display:flex;flex-direction:column;gap:12px;}
-.contact-info dt{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.3px;font-weight:600;}
-.contact-info dd{margin:2px 0 0;font-size:13.5px;color:var(--ink);}
-.contact-map{border-radius:8px;overflow:hidden;border:1px solid var(--line);min-height:220px;}
-.contact-map iframe{width:100%;height:100%;min-height:220px;border:0;display:block;}
-.contact-directory{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
-.contact-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;gap:12px;align-items:flex-start;}
-.contact-card .staff-photo{width:56px;height:56px;border-radius:50%;flex-shrink:0;background-size:cover;background-position:center;background-color:var(--paper-2);display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--ink-soft);}
-.contact-card .cc-body{flex:1;min-width:0;}
-.contact-card .cc-name{font-size:13.5px;font-weight:700;color:var(--ink);}
-.contact-card .cc-role{font-size:11.5px;color:var(--ink-soft);margin-bottom:8px;}
-.contact-card .cc-links{display:flex;flex-direction:column;gap:5px;}
-.contact-card .cc-links a{font-size:11.8px;color:var(--red-dark);text-decoration:none;display:flex;align-items:center;gap:6px;}
-.contact-card .cc-links a:hover{text-decoration:underline;}
-.contact-card .cc-links svg{width:13px;height:13px;flex-shrink:0;}
-@media(max-width:700px){.contact-hero{grid-template-columns:1fr;}}
 .stat-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;}
 .stat-card .num{font-family:'Noto Serif',serif;font-size:28px;font-weight:700;color:var(--red-dark);}
 .stat-card.warn .num{color:var(--danger);}
 .stat-card .label{font-size:12px;color:var(--ink-soft);margin-top:2px;}
-
-.org-block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-bottom:18px;}
-.org-block h3{margin:0 0 12px;font-size:15px;color:var(--red-dark);font-family:'Noto Serif',serif;display:flex;align-items:center;gap:8px;}
-.org-block > p.org-desc{margin:0;font-size:12.8px;color:var(--ink-soft);line-height:1.7;}
-.org-principles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px;}
-.org-principle{display:flex;gap:9px;align-items:flex-start;font-size:12.3px;color:var(--ink);background:var(--paper-2);border-radius:8px;padding:11px 13px;line-height:1.5;}
-.org-principle svg{flex-shrink:0;width:16px;height:16px;color:var(--gold-deep);margin-top:1px;}
-.org-duties{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
-.org-duty{display:flex;gap:11px;}
-.org-duty .num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--red-dark);color:#f2e9d8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;font-family:'Noto Serif',serif;}
-.org-duty .txt b{display:block;font-size:12.5px;color:var(--red-dark);margin-bottom:2px;}
-.org-duty .txt p{margin:0;font-size:11.6px;color:var(--ink-soft);line-height:1.55;}
-.org-chart{text-align:center;}
-.org-chart-node{display:inline-block;background:var(--red-dark);color:#f2e9d8;padding:10px 26px;border-radius:8px;font-weight:600;font-size:13px;}
-.org-chart-node.sub{background:var(--gold);color:var(--red-dark);margin-top:10px;}
-.org-chart-line{width:2px;height:16px;background:var(--line);margin:0 auto;}
-.org-chart-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:16px;}
-.org-chart-unit{background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:11.5px;text-align:center;width:150px;color:var(--ink-soft);font-weight:500;}
-.org-note{font-size:11.5px;color:var(--ink-soft);margin-top:16px;text-align:center;}
-.org-footer{display:flex;justify-content:space-between;gap:20px;font-size:11px;color:var(--ink-soft);flex-wrap:wrap;line-height:1.6;}
-.org-footer b{color:var(--red-dark);}
 .section-label{font-size:12.5px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px;}
 .staff-rows{display:flex;flex-direction:column;gap:16px;}
 .staff-row{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;}
@@ -264,23 +233,6 @@ tbody tr:hover{background:var(--gold-soft);}
 .modal-field b{font-weight:500;}
 .modal-field .doc-text{line-height:1.6;}
 
-/* Báo cáo 2 chiều */
-.rp-field{margin-bottom:14px;}
-.rp-field label{display:block;font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:.3px;}
-.rp-field input[type=text], .rp-field input[type=date], .rp-field input[type=password], .rp-field input[type=file], .rp-field select{
-  width:100%;border:1px solid var(--line);background:var(--paper-2);border-radius:7px;padding:9px 12px;font-size:13px;color:var(--ink);
-}
-.rp-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
-.rp-summary .chip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--ink-soft);}
-.rp-summary .chip b{color:var(--ink);}
-.rp-msg{margin-top:10px;font-size:12.5px;}
-.rp-msg.ok{color:var(--green);}
-.rp-msg.err{color:var(--danger);}
-.ky-scroll{max-height:172px;overflow-y:auto;border-radius:var(--radius);box-shadow:0 1px 3px rgba(0,0,0,.04);}
-.ky-scroll table{box-shadow:none;border-radius:0;}
-.ky-scroll thead th{position:sticky;top:0;z-index:1;}
-.ky-scroll td.ky-noidung{white-space:normal;word-break:break-word;line-height:1.5;}
-
 /* Search results */
 .search-group{margin-bottom:26px;}
 .search-group-title{
@@ -301,10 +253,9 @@ tbody tr:hover{background:var(--gold-soft);}
 .search-hit .sh-sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 
 @media(max-width:820px){
-  .site-header{padding:14px 16px;}
-  .site-header-tagline{display:none;}
-  .tab-nav{padding:0 12px;overflow-x:auto;}
-  .nav-item span.label{display:none;}
+  .sidebar{width:70px;}
+  .brand-title,.brand-sub,.nav-item span.label{display:none;}
+  .main{margin-left:70px;}
   .stat-row{grid-template-columns:1fr;}
   .search-box{min-width:140px;}
 }
@@ -313,28 +264,25 @@ tbody tr:hover{background:var(--gold-soft);}
 <body>
 <div class="app">
 
-  <div class="site-sticky-top">
-    <!-- ============ HEADER ============ -->
-    <header class="site-header">
-      <div class="site-header-brand">
-        <img class="site-logo" src="https://drive.google.com/thumbnail?id=1iQ5WCaEHv3nxmpImAf0tKYtI-1s_CFVH&sz=w200" alt="Logo UBKT">
-        <div class="site-title">Ủy ban Kiểm tra<br>Đảng ủy phường Cầu Kiệu</div>
-      </div>
-      <div class="site-header-tagline">"Giám sát để mở rộng, kiểm tra để răn đe, kỷ luật để xây dựng"</div>
-      <div class="site-header-right">
-        <span class="clock" id="liveClock">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-          <span id="clockText">—</span>
-        </span>
-      </div>
-    </header>
-
-    <!-- ============ TAB NAV NGANG ============ -->
-    <nav class="tab-nav" id="navList"></nav>
-  </div>
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="stamp"><span>UBKT</span></div>
+      <div class="brand-title">Ủy ban Kiểm tra<br>Đảng ủy phường Phú Nhuận</div>
+    </div>
+    <nav id="navList"></nav>
+    <div class="sidebar-foot">Dữ liệu cập nhật từ Google Sheets<br>© UBKT phường Phú Nhuận</div>
+  </aside>
 
   <!-- ============ MAIN ============ -->
   <div class="main">
+    <div class="topbar-strip">
+      <span class="tagline">KIỂM TRA · GIÁM SÁT · KỶ LUẬT ĐẢNG</span>
+      <span class="clock" id="liveClock">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <span id="clockText">—</span>
+      </span>
+    </div>
     <div class="topbar">
       <div class="topbar-left">
         <div class="rule"></div>
@@ -351,9 +299,6 @@ tbody tr:hover{background:var(--gold-soft);}
     <div class="content" id="content">
       <!-- pages injected by JS -->
     </div>
-    <footer style="padding:14px 32px 24px;font-size:10.5px;color:var(--ink-soft);border-top:1px solid var(--line);">
-      Dữ liệu cập nhật từ Google Sheets · © UBKT phường Cầu Kiệu
-    </footer>
   </div>
 </div>
 
@@ -370,7 +315,7 @@ tbody tr:hover{background:var(--gold-soft);}
    Lấy từ URL: docs.google.com/spreadsheets/d/ĐÂY_LÀ_ID/edit
    ========================================================= */
 const CONFIG = {
-  SHEET_ID: "1fbMYpbOBySi9D4V-uL_Noc4naKYw3PC9AtXeUwVptVU",
+  SHEET_ID: "1qAIyuy5bGUkgsjtECF7FULGoKQBai6RhJs-7o4sB1ck",
   SHEETS: {
     thanhvien: "ThanhVienUBKT",
     vanban: "VanBanQuyPham",
@@ -381,13 +326,7 @@ const CONFIG = {
     kinhnghiem: "KinhNghiemNghiepVu",
     cauhoi: "CauHoiNghiepVu",
     lich: "LichCongViec",
-    kybaocao: "KyBaoCao",
-    danhsachchibo: "DanhSachChiBo",
-    baocao: "BaoCao",
-  },
-  // Dán URL Web App của Google Apps Script sau khi triển khai (xem hướng dẫn đi kèm).
-  // Ví dụ: "https://script.google.com/macros/s/AKfycb.../exec"
-  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwlNOtKZ3Xr7JGXnou5nQLxtH9CIy7AvcjWQGjzyGUZn0S0ZopjZBIYir9G5jYdK05o/exec", // <-- dán URL mới sau khi triển khai lại theo HUONG_DAN_TU_DAU.md
+  }
 };
 
 /* =========================================================
@@ -406,9 +345,6 @@ const ICONS = {
   download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>',
   external:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>',
   chevron:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
-  upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M5 21h14"/></svg>',
-  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
-  contact:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
 };
 
 /* =========================================================
@@ -416,12 +352,14 @@ const ICONS = {
    ========================================================= */
 const PAGES = [
   {id:"home", label:"Trang chủ", icon:"home"},
-  {id:"baocao", label:"Báo cáo", icon:"upload"},
-  {id:"vanban", label:"Văn bản các cấp", icon:"doc"},
-  {id:"kehoach", label:"Kế hoạch - Chương trình", icon:"plan"},
+  {id:"vanban", label:"Văn bản quy phạm", icon:"doc"},
+  {id:"quytrinh", label:"Quy trình nghiệp vụ", icon:"flow"},
   {id:"bieumau", label:"Biểu mẫu", icon:"form"},
+  {id:"hoso", label:"Hồ sơ mẫu", icon:"folder"},
+  {id:"kehoach", label:"Kế hoạch công tác", icon:"plan"},
+  {id:"kinhnghiem", label:"Kinh nghiệm nghiệp vụ", icon:"bulb"},
+  {id:"cauhoi", label:"Câu hỏi nghiệp vụ", icon:"question"},
   {id:"lich", label:"Lịch công việc", icon:"cal"},
-  {id:"lienhe", label:"Liên hệ", icon:"contact"},
 ];
 
 const navList = document.getElementById("navList");
@@ -473,12 +411,7 @@ async function fetchSheet(sheetName){
     json = await loadSheetFetch(sheetName);
   }catch(e1){
     console.warn(`fetch() thất bại cho "${sheetName}", thử JSONP...`, e1.message);
-    try{
-      json = await loadSheetJSONP(sheetName);
-    }catch(e2){
-      console.warn(`JSONP thất bại cho "${sheetName}", thử lại lần 2...`, e2.message);
-      json = await loadSheetJSONP(sheetName);
-    }
+    json = await loadSheetJSONP(sheetName);
   }
   let cols = json.table.cols.map(c=>c.label || "");
   let dataRows = json.table.rows || [];
@@ -541,7 +474,7 @@ function loadSheetJSONP(sheetName){
       done = true;
       cleanup();
       reject(new Error(`Hết thời gian chờ tải sheet "${sheetName}".`));
-    }, 20000);
+    }, 12000);
     document.body.appendChild(script);
   });
 }
@@ -577,13 +510,12 @@ const SEARCH_PLACEHOLDERS = {
   kinhnghiem: "Tìm theo tình huống, cách xử lý...",
   cauhoi: "Tìm câu hỏi, câu trả lời...",
   lich: "Tìm theo nhiệm vụ, người phụ trách...",
-  baocao: "Tìm theo kỳ, tên chi bộ...",
 };
 
 function statusBadge(status){
   const s = (status||"").toLowerCase();
   if(s.includes("trễ")) return `<span class="badge danger">${esc(status)}</span>`;
-  if(s.includes("hoàn thành") || s.includes("còn hiệu lực") || s.includes("đã nộp")) return `<span class="badge green">${esc(status)}</span>`;
+  if(s.includes("hoàn thành") || s.includes("còn hiệu lực")) return `<span class="badge green">${esc(status)}</span>`;
   if(s.includes("đang")) return `<span class="badge amber">${esc(status)}</span>`;
   return `<span class="badge gray">${esc(status||"—")}</span>`;
 }
@@ -603,8 +535,6 @@ async function renderPage(id){
     else if(id==="kinhnghiem") await renderKinhNghiem(sec);
     else if(id==="cauhoi") await renderCauHoi(sec);
     else if(id==="lich") await renderLich(sec);
-    else if(id==="baocao") await renderBaoCao(sec);
-    else if(id==="lienhe") await renderLienHe(sec);
   }catch(e){
     console.error(e);
     sec.innerHTML = `<div class="empty">Không tải được dữ liệu.<br><small style="color:var(--danger)">${esc(e.message)}</small><br><small>Kiểm tra: (1) SHEET_ID đúng, (2) Sheet đã bật "Bất kỳ ai có link – Người xem", (3) tên sheet con khớp chính xác (phân biệt hoa/thường).</small></div>`;
@@ -614,63 +544,29 @@ async function renderPage(id){
 /* ---------- HOME ---------- */
 async function renderHome(sec){
   sec.innerHTML = `<div class="loading">Đang tải dữ liệu...</div>`;
-  const [staff] = await Promise.all([
+  const [vanban, kehoach, lich, staff] = await Promise.all([
+    fetchSheet(CONFIG.SHEETS.vanban).catch(()=>[]),
+    fetchSheet(CONFIG.SHEETS.kehoach).catch(()=>[]),
+    fetchSheet(CONFIG.SHEETS.lich).catch(()=>[]),
     fetchSheet(CONFIG.SHEETS.thanhvien).catch(()=>[]),
   ]);
+  const nam = new Date().getFullYear();
+  const soVanBanHieuLuc = vanban.filter(r=>(r.TinhTrangHieuLuc||"").includes("Còn hiệu lực")).length;
+  const soKeHoachNam = kehoach.filter(r=>String(r.Nam)===String(nam)).length;
+  const soTreHan = lich.filter(r=>(r.TrangThai||"").toLowerCase().includes("trễ")).length;
+
   staff.sort((a,b)=>(Number(a.ThuTuHienThi)||99)-(Number(b.ThuTuHienThi)||99));
 
-  const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
-  const duties = [
-    ["Nghiên cứu, đề xuất và thực hiện","Tham mưu, xây dựng chương trình, kế hoạch, nội dung kiểm tra, giám sát, kỷ luật đảng; xây dựng các nghị quyết, quy chế, quy trình... về công tác kiểm tra, giám sát của Đảng ủy phường."],
-    ["Chuẩn bị hồ sơ, tài liệu","Chuẩn bị hồ sơ, tài liệu triển khai thực hiện việc kiểm tra, giám sát, kỷ luật đảng và kiểm soát tài sản, thu nhập."],
-    ["Đề xuất, tham mưu","Đề xuất ý kiến góp ý trong lãnh đạo, chỉ đạo của Đảng ủy, Ban thường vụ; tham gia ý kiến các trường hợp do cơ quan chức năng đề nghị khen thưởng."],
-    ["Tuyên truyền, phổ biến","Tuyên truyền, phổ biến, nghiên cứu, sơ kết, tổng kết về công tác kiểm tra, giám sát và thi hành kỷ luật đảng trong Đảng bộ phường."],
-    ["Tổ chức công tác và quản trị nội bộ","Xây dựng chương trình, kế hoạch công tác; xây dựng tổ chức, cán bộ, thực hiện chế độ, chính sách; kiểm tra, giám sát hoạt động của cơ quan và Ủy ban kiểm tra cấp ủy trực thuộc; ứng dụng công nghệ thông tin."],
-    ["Hướng dẫn, kiểm tra, giám sát","Hướng dẫn, kiểm tra, giám sát cấp ủy, tổ chức đảng, đảng viên; chỉ đạo, hướng dẫn nghiệp vụ công tác kiểm tra, giám sát, thi hành kỷ luật đảng."],
-    ["Thẩm định, thẩm tra","Thẩm định, thẩm tra đề án, văn bản của các cơ quan, đơn vị liên quan trước khi trình Đảng ủy, Ban thường vụ Đảng ủy phường."],
-    ["Phối hợp công tác","Phối hợp với các ban xây dựng Đảng, Văn phòng Đảng ủy, các cơ quan liên quan trong thực hiện nhiệm vụ kiểm tra, giám sát và thi hành kỷ luật đảng."],
-    ["Đào tạo, bồi dưỡng","Phối hợp đào tạo, bồi dưỡng chuyên môn, nghiệp vụ về công tác kiểm tra, giám sát và kỷ luật đảng cho cấp ủy viên, cán bộ, công chức và tổ chức cơ sở đảng."],
-    ["Nhiệm vụ khác","Thực hiện các nhiệm vụ khác do Ban thường vụ, Thường trực Đảng ủy phường và Ủy ban kiểm tra Đảng ủy phường giao."],
-  ];
-  const principles = [
-    "Tuân thủ Điều lệ Đảng và các quy định của Đảng.",
-    "Công khai, dân chủ, khách quan, thận trọng.",
-    "Đoàn kết, kỷ cương, liêm khiết, hiệu quả.",
-    "Chịu sự lãnh đạo của Đảng ủy, sự chỉ đạo của Ủy ban kiểm tra Đảng ủy phường.",
-  ];
-
   sec.innerHTML = `
-    <p class="lede">Cổng thông tin nghiệp vụ kiểm tra, giám sát và thi hành kỷ luật Đảng của Ủy ban Kiểm tra Đảng ủy phường Cầu Kiệu. Toàn bộ văn bản, kế hoạch, biểu mẫu và báo cáo nghiệp vụ được cập nhật trực tiếp từ hệ thống dữ liệu dùng chung.</p>
-
-    <div class="org-block">
-      <h3>1. Tổ chức bộ máy</h3>
-      <div class="staff-rows">
-        ${staff.length ? renderStaffRows(staff) : `<div class="empty">Chưa có dữ liệu nhân sự trong sheet ThanhVienUBKT.</div>`}
-      </div>
+    <p class="lede">Cổng thông tin nghiệp vụ kiểm tra, giám sát và thi hành kỷ luật Đảng của Ủy ban Kiểm tra Đảng ủy phường Phú Nhuận. Toàn bộ văn bản, quy trình, biểu mẫu và hồ sơ nghiệp vụ được cập nhật trực tiếp từ hệ thống dữ liệu dùng chung.</p>
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">${soVanBanHieuLuc}</div><div class="label">Văn bản còn hiệu lực</div></div>
+      <div class="stat-card"><div class="num">${soKeHoachNam}</div><div class="label">Kế hoạch công tác năm ${nam}</div></div>
+      <div class="stat-card ${soTreHan>0?'warn':''}"><div class="num">${soTreHan}</div><div class="label">Nhiệm vụ trễ hạn</div></div>
     </div>
-
-    <div class="org-block">
-      <h3>2. Chức năng</h3>
-      <p class="org-desc">Là cơ quan tham mưu, giúp Ủy ban kiểm tra Đảng ủy phường thực hiện các nhiệm vụ, quyền hạn về công tác kiểm tra, giám sát và kỷ luật đảng trong Đảng bộ phường theo quy định của Điều lệ Đảng và thực hiện các nhiệm vụ do Đảng ủy, Ban thường vụ Đảng ủy phường giao; đồng thời, là cơ quan chuyên môn, nghiệp vụ về công tác kiểm tra, giám sát và kỷ luật đảng của Đảng ủy phường.</p>
-    </div>
-
-    <div class="org-block">
-      <h3>Nguyên tắc hoạt động</h3>
-      <div class="org-principles">
-        ${principles.map(p=>`<div class="org-principle">${CHECK}<span>${p}</span></div>`).join("")}
-      </div>
-    </div>
-
-    <div class="org-block">
-      <h3>3. Nhiệm vụ chủ yếu</h3>
-      <div class="org-duties">
-        ${duties.map((d,i)=>`
-          <div class="org-duty">
-            <div class="num">${String(i+1).padStart(2,"0")}</div>
-            <div class="txt"><b>${esc(d[0])}</b><p>${esc(d[1])}</p></div>
-          </div>
-        `).join("")}
-      </div>
+    <p class="section-label">Lãnh đạo và chuyên viên</p>
+    <div class="staff-rows">
+      ${staff.length ? renderStaffRows(staff) : `<div class="empty">Chưa có dữ liệu nhân sự trong sheet ThanhVienUBKT.</div>`}
     </div>
   `;
 }
@@ -698,21 +594,24 @@ async function renderVanBan(sec){
     <p class="lede">Danh mục văn bản còn hiệu lực liên quan công tác kiểm tra, giám sát: Điều lệ Đảng, Quy định, Hướng dẫn, Quy chế, Quy trình.</p>
     <div class="toolbar">
       <select class="filter" id="f-loai"><option value="">Tất cả loại văn bản</option>${uniq("LoaiVanBan").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+      <select class="filter" id="f-linhvuc"><option value="">Tất cả lĩnh vực</option>${uniq("LinhVuc").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
       <select class="filter" id="f-hieuluc"><option value="">Tất cả tình trạng</option>${uniq("TinhTrangHieuLuc").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
     </div>
     <div id="vanban-table"></div>
   `;
   const draw = ()=>{
     const fl = document.getElementById("f-loai").value;
+    const fv = document.getElementById("f-linhvuc").value;
     const fh = document.getElementById("f-hieuluc").value;
     const q = getSearchQuery();
-    const filtered = rows.filter(r=> (!fl||r.LoaiVanBan===fl) && (!fh||r.TinhTrangHieuLuc===fh)
+    const filtered = rows.filter(r=> (!fl||r.LoaiVanBan===fl) && (!fv||r.LinhVuc===fv) && (!fh||r.TinhTrangHieuLuc===fh)
       && matchAny([r.TenVanBan, r.SoHieu, r.CoQuanBanHanh, r.GhiChu], q));
     document.getElementById("vanban-table").innerHTML = filtered.length ? `
-      <table><thead><tr><th>Loại văn bản · Số hiệu</th><th>Ngày ban hành</th><th>Cơ quan ban hành</th><th>Tình trạng</th><th></th></tr></thead>
+      <table><thead><tr><th>Tên văn bản</th><th>Số hiệu</th><th>Ngày ban hành</th><th>Cơ quan ban hành</th><th>Tình trạng</th><th></th></tr></thead>
       <tbody>${filtered.map(r=>`
         <tr>
-          <td><strong>${esc(r.LoaiVanBan)}${r.LoaiVanBan && r.SoHieu ? " · " : ""}${esc(r.SoHieu)}</strong><div style="color:var(--ink-soft);font-size:11.5px;margin-top:2px">${esc(r.TenVanBan)}</div></td>
+          <td><strong>${esc(r.TenVanBan)}</strong><div style="color:var(--ink-soft);font-size:11.5px;margin-top:2px">${esc(r.LoaiVanBan)} · ${esc(r.LinhVuc)}</div></td>
+          <td>${esc(r.SoHieu)}</td>
           <td>${esc(r.NgayBanHanh)}</td>
           <td>${esc(r.CoQuanBanHanh)}</td>
           <td>${statusBadge(r.TinhTrangHieuLuc)}</td>
@@ -720,7 +619,7 @@ async function renderVanBan(sec){
         </tr>`).join("")}</tbody></table>
     ` : `<div class="empty">Không có văn bản phù hợp.</div>`;
   };
-  ["f-loai","f-hieuluc"].forEach(id=>document.getElementById(id).onchange=draw);
+  ["f-loai","f-linhvuc","f-hieuluc"].forEach(id=>document.getElementById(id).onchange=draw);
   pageRedraw.vanban = draw;
   draw();
 }
@@ -944,33 +843,28 @@ async function renderHoSo(sec){
 /* ---------- KẾ HOẠCH CÔNG TÁC ---------- */
 async function renderKeHoach(sec){
   const rows = await fetchSheet(CONFIG.SHEETS.kehoach);
-  const uniq = (key)=>[...new Set(rows.map(r=>r[key]).filter(Boolean))];
   sec.innerHTML = `
     <p class="lede">Chương trình, kế hoạch, quyết định về công tác kiểm tra, giám sát.</p>
-    <div class="toolbar">
-      <select class="filter" id="f-loaikh"><option value="">Tất cả loại kế hoạch</option>${uniq("LoaiKeHoach").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
-      <select class="filter" id="f-trangthaikh"><option value="">Tất cả trạng thái</option>${uniq("TrangThai").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
-    </div>
     <div id="kehoach-list"></div>
   `;
   const draw = ()=>{
-    const fl = document.getElementById("f-loaikh").value;
-    const ft = document.getElementById("f-trangthaikh").value;
     const q = getSearchQuery();
-    const filtered = rows.filter(r=> (!fl||r.LoaiKeHoach===fl) && (!ft||r.TrangThai===ft)
-      && matchAny([r.LoaiKeHoach, r.NoiDung], q));
-    document.getElementById("kehoach-list").innerHTML = filtered.length ? `
-      <table><thead><tr><th>Loại kế hoạch</th><th>Năm</th><th>Trạng thái</th><th></th></tr></thead>
-      <tbody>${filtered.map(r=>`
-        <tr>
-          <td><strong>${esc(r.LoaiKeHoach)}</strong><div style="color:var(--ink-soft);font-size:11.5px;margin-top:2px">${esc(r.NoiDung)}</div></td>
-          <td>${esc(r.Nam)}</td>
-          <td>${statusBadge(r.TrangThai)}</td>
-          <td>${r.LinkDrive ? `<a class="icon-btn" href="${esc(r.LinkDrive)}" target="_blank">${ICONS.download}Xem</a>` : ""}</td>
-        </tr>`).join("")}</tbody></table>
-    ` : `<div class="empty">Không có kế hoạch phù hợp.</div>`;
+    const filtered = rows.filter(r=>matchAny([r.LoaiKeHoach, r.NoiDung], q));
+    document.getElementById("kehoach-list").innerHTML = filtered.length ? `<div class="stack-list">
+      ${filtered.map(r=>`
+        <div class="stack-row">
+          <div class="row-top">
+            <h4>${esc(r.LoaiKeHoach)}</h4>
+            <span class="meta">Năm ${esc(r.Nam)}</span>
+          </div>
+          <p>${esc(r.NoiDung)}</p>
+          <div class="row-bottom">
+            ${statusBadge(r.TrangThai)}
+            ${r.LinkDrive ? `<a class="icon-btn" href="${esc(r.LinkDrive)}" target="_blank">${ICONS.download}Xem</a>` : ""}
+          </div>
+        </div>`).join("")}
+    </div>` : `<div class="empty">Không có kế hoạch phù hợp.</div>`;
   };
-  ["f-loaikh","f-trangthaikh"].forEach(id=>document.getElementById(id).onchange=draw);
   pageRedraw.kehoach = draw;
   draw();
 }
@@ -1172,283 +1066,6 @@ function openLichTask(idx){
 
 function closeLichModal(){
   document.getElementById("taskModal").classList.remove("open");
-}
-
-/* ---------- LIÊN HỆ ---------- */
-async function renderLienHe(sec){
-  sec.innerHTML = `<div class="loading">Đang tải dữ liệu...</div>`;
-  const staff = await fetchSheet(CONFIG.SHEETS.thanhvien).catch(()=>[]);
-  staff.sort((a,b)=>(Number(a.ThuTuHienThi)||99)-(Number(b.ThuTuHienThi)||99));
-
-  const DIA_CHI = "06 Cầm Bá Thước, phường Cầu Kiệu, Thành phố Hồ Chí Minh";
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(DIA_CHI)}&output=embed`;
-
-  const PHONE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
-  const MAIL_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>`;
-
-  const directoryHtml = staff.length ? staff.map(s=>`
-    <div class="contact-card">
-      <div class="staff-photo" style="${s.AnhDaiDien ? `background-image:url('${esc(driveThumb(s.AnhDaiDien))}')` : ''}">${s.AnhDaiDien ? '' : 'Chưa có ảnh'}</div>
-      <div class="cc-body">
-        <div class="cc-name">${esc(s.HoTen)}</div>
-        <div class="cc-role">${esc(s.ChucVu)}</div>
-        <div class="cc-links">
-          ${s.SoDienThoai ? `<a href="tel:${esc(s.SoDienThoai)}">${PHONE_ICON}${esc(s.SoDienThoai)}</a>` : ""}
-          ${s.Email ? `<a href="mailto:${esc(s.Email)}">${MAIL_ICON}${esc(s.Email)}</a>` : ""}
-        </div>
-      </div>
-    </div>
-  `).join("") : `<div class="empty">Chưa có dữ liệu nhân sự trong sheet ThanhVienUBKT.</div>`;
-
-  sec.innerHTML = `
-    <p class="lede">Thông tin liên hệ của Ủy ban Kiểm tra Đảng ủy phường Cầu Kiệu và danh bạ liên hệ trực tiếp từng thành viên.</p>
-
-    <div class="contact-hero">
-      <div class="contact-info">
-        <h3>Thông tin liên hệ</h3>
-        <dl>
-          <div><dt>Tên cơ quan</dt><dd>Ủy ban Kiểm tra Đảng ủy phường Cầu Kiệu</dd></div>
-          <div><dt>Địa chỉ trụ sở</dt><dd>${esc(DIA_CHI)}</dd></div>
-          <div><dt>Giờ làm việc</dt><dd>Thứ Hai – Thứ Sáu, 7:30 – 11:30 và 13:30 – 17:00</dd></div>
-        </dl>
-      </div>
-      <div class="contact-map">
-        <iframe src="${mapSrc}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ trụ sở UBKT"></iframe>
-      </div>
-    </div>
-
-    <p class="section-label">Danh bạ liên hệ thành viên</p>
-    <div class="contact-directory">
-      ${directoryHtml}
-    </div>
-  `;
-}
-
-/* ---------- BÁO CÁO 2 CHIỀU ---------- */
-let bcData = {ky:[], chibo:[], baocao:[]};
-
-async function loadBaoCaoData(force){
-  if(force){
-    delete loaded[CONFIG.SHEETS.kybaocao];
-    delete loaded[CONFIG.SHEETS.danhsachchibo];
-    delete loaded[CONFIG.SHEETS.baocao];
-  }
-  const [ky, chibo, baocao] = await Promise.all([
-    fetchSheet(CONFIG.SHEETS.kybaocao).catch(()=>[]),
-    fetchSheet(CONFIG.SHEETS.danhsachchibo).catch(()=>[]),
-    fetchSheet(CONFIG.SHEETS.baocao).catch(()=>[]),
-  ]);
-  bcData = {ky, chibo, baocao};
-  return bcData;
-}
-
-async function renderBaoCao(sec){
-  await loadBaoCaoData(false);
-  sec.innerHTML = `
-    <p class="lede">Chi bộ tải mẫu và nộp báo cáo bằng file PDF trực tiếp trên web. UBKT theo dõi tình trạng nộp báo cáo của từng chi bộ theo từng kỳ.</p>
-    <div class="toolbar">
-      <div class="view-toggle">
-        <button id="bc-view-gui" class="active">Gửi báo cáo</button>
-        <button id="bc-view-theodoi">Theo dõi nộp báo cáo</button>
-      </div>
-    </div>
-    <div id="bc-gui-view"></div>
-    <div id="bc-theodoi-view" style="display:none"></div>
-  `;
-
-  drawBaoCaoGui();
-  drawBaoCaoTheoDoi();
-
-  document.getElementById("bc-view-gui").onclick = ()=>{
-    document.getElementById("bc-view-gui").classList.add("active");
-    document.getElementById("bc-view-theodoi").classList.remove("active");
-    document.getElementById("bc-gui-view").style.display = "";
-    document.getElementById("bc-theodoi-view").style.display = "none";
-  };
-  document.getElementById("bc-view-theodoi").onclick = ()=>{
-    document.getElementById("bc-view-theodoi").classList.add("active");
-    document.getElementById("bc-view-gui").classList.remove("active");
-    document.getElementById("bc-theodoi-view").style.display = "";
-    document.getElementById("bc-gui-view").style.display = "none";
-  };
-
-  pageRedraw.baocao = ()=>{ drawBaoCaoGui(); drawBaoCaoTheoDoi(); };
-}
-
-function drawBaoCaoGui(){
-  const {ky, chibo} = bcData;
-  const wrap = document.getElementById("bc-gui-view");
-  if(!ky.length){
-    wrap.innerHTML = `<div class="empty">Chưa có kỳ báo cáo nào. UBKT cần nhập trực tiếp vào sheet "KyBaoCao".</div>`;
-    return;
-  }
-  const kyRowsHtml = ky.map(k=>`
-    <tr>
-      <td><strong>${esc(k.Ky)}</strong></td>
-      <td class="ky-noidung">${k.NoiDung ? esc(k.NoiDung) : "—"}</td>
-      <td>${k.HanNop ? esc(k.HanNop) : "—"}</td>
-      <td>${k.LinkMauBaoCao ? `<a class="icon-btn" href="${esc(k.LinkMauBaoCao)}" target="_blank">${ICONS.download}Tải mẫu báo cáo</a>` : `<span style="color:var(--ink-soft);font-size:12px">Chưa có mẫu</span>`}</td>
-    </tr>
-  `).join("");
-
-  wrap.innerHTML = `
-    <div class="card" style="margin-bottom:18px">
-      <h4 class="serif" style="margin:0 0 14px">Kỳ báo cáo</h4>
-      <div class="ky-scroll">
-        <table><thead><tr><th>Tên kỳ</th><th>Nội dung</th><th>Hạn nộp</th><th>Mẫu báo cáo</th></tr></thead>
-        <tbody>${kyRowsHtml}</tbody></table>
-      </div>
-    </div>
-    <div class="card" style="max-width:520px">
-      <h4 class="serif" style="margin:0 0 14px">Nộp báo cáo</h4>
-      <div class="rp-field"><label>Kỳ báo cáo</label>
-        <select id="bc-sel-ky">${ky.map(k=>`<option value="${esc(k.Ky)}">${esc(k.Ky)}</option>`).join("")}</select>
-      </div>
-      <div class="rp-field"><label>Chi bộ</label>
-        <select id="bc-sel-chibo">${chibo.length ? chibo.map(c=>`<option value="${esc(c.TenChiBo)}">${esc(c.TenChiBo)}</option>`).join("") : `<option value="">Chưa có danh sách chi bộ</option>`}</select>
-      </div>
-      <div class="rp-field"><label>File báo cáo (PDF)</label>
-        <input type="file" id="bc-file" accept="application/pdf">
-      </div>
-      <button class="icon-btn" id="bc-btn-submit">${ICONS.upload}Gửi báo cáo</button>
-      <div id="bc-submit-msg" class="rp-msg"></div>
-    </div>
-  `;
-
-  document.getElementById("bc-btn-submit").onclick = async ()=>{
-    const kyVal = document.getElementById("bc-sel-ky").value;
-    const chiboVal = document.getElementById("bc-sel-chibo").value;
-    const fileInput = document.getElementById("bc-file");
-    const msg = document.getElementById("bc-submit-msg");
-    const btn = document.getElementById("bc-btn-submit");
-    msg.className = "rp-msg"; msg.textContent = "";
-    if(!kyVal || !chiboVal){ msg.className="rp-msg err"; msg.textContent="Vui lòng chọn đầy đủ kỳ báo cáo và chi bộ."; return; }
-    const file = fileInput.files[0];
-    if(!file){ msg.className="rp-msg err"; msg.textContent="Vui lòng chọn file PDF báo cáo."; return; }
-    if(file.type !== "application/pdf"){ msg.className="rp-msg err"; msg.textContent="Chỉ chấp nhận file định dạng PDF."; return; }
-    btn.disabled = true;
-    msg.className = "rp-msg"; msg.textContent = "Đang gửi báo cáo, vui lòng chờ...";
-    try{
-      const base64 = await fileToBase64(file);
-      await postToAppsScript({
-        action: "submitReport",
-        ky: kyVal,
-        tenChiBo: chiboVal,
-        fileName: file.name,
-        mimeType: file.type,
-        fileBase64: base64,
-      });
-      msg.textContent = "Đã gửi, đang xác nhận với máy chủ...";
-      // Chờ Apps Script xử lý xong rồi tải lại sheet BaoCao để xác minh dòng đã được ghi
-      // (bắt buộc vì mode "no-cors" không cho đọc phản hồi JSON trả về).
-      let confirmed = false;
-      for(let attempt=0; attempt<4 && !confirmed; attempt++){
-        await new Promise(r=>setTimeout(r, 1800));
-        await loadBaoCaoData(true);
-        confirmed = bcData.baocao.some(b=>b.Ky===kyVal && b.TenChiBo===chiboVal && b.LinkFilePDF);
-      }
-      if(confirmed){
-        msg.className = "rp-msg ok";
-        msg.textContent = "Đã gửi báo cáo thành công.";
-        fileInput.value = "";
-      }else{
-        msg.className = "rp-msg err";
-        msg.textContent = "Chưa xác nhận được báo cáo đã lưu vào hệ thống. Vui lòng kiểm tra lại sheet BaoCao trên Google Sheet, hoặc thử gửi lại sau ít phút.";
-      }
-      drawBaoCaoTheoDoi();
-    }catch(e){
-      msg.className = "rp-msg err";
-      msg.textContent = "Gửi báo cáo thất bại: " + e.message;
-    }finally{
-      btn.disabled = false;
-    }
-  };
-}
-
-function computeTrangThaiBaoCao(kyRow, submitted){
-  if(submitted && submitted.NgayNop) return "Đã nộp";
-  const han = kyRow && kyRow.HanNop ? parseVNDate(kyRow.HanNop) : null;
-  if(han && new Date() > han) return "Trễ hạn";
-  return "Chưa đến hạn";
-}
-
-function drawBaoCaoTheoDoi(){
-  const {ky, chibo, baocao} = bcData;
-  const wrap = document.getElementById("bc-theodoi-view");
-  if(!ky.length){
-    wrap.innerHTML = `<div class="empty">Chưa có kỳ báo cáo nào.</div>`;
-    return;
-  }
-  wrap.innerHTML = `
-    <div class="toolbar">
-      <select class="filter" id="bc-td-ky">${ky.map(k=>`<option value="${esc(k.Ky)}">${esc(k.Ky)}</option>`).join("")}</select>
-    </div>
-    <div id="bc-td-summary" class="rp-summary"></div>
-    <div id="bc-td-table"></div>
-  `;
-  const draw = ()=>{
-    const kyVal = document.getElementById("bc-td-ky").value;
-    const kyRow = ky.find(k=>k.Ky===kyVal);
-    const q = getSearchQuery();
-    const list = (chibo.length ? chibo.map(c=>c.TenChiBo) : [...new Set(baocao.filter(b=>b.Ky===kyVal).map(b=>b.TenChiBo))])
-      .filter(name=>matchAny([name], q));
-    let daNop=0, treHan=0, chuaDen=0;
-    const rowsHtml = list.map(name=>{
-      const submitted = baocao.find(b=>b.Ky===kyVal && b.TenChiBo===name);
-      const st = computeTrangThaiBaoCao(kyRow, submitted);
-      if(st==="Đã nộp") daNop++; else if(st==="Trễ hạn") treHan++; else chuaDen++;
-      return {name, submitted, st};
-    });
-    const submittedRows = rowsHtml.filter(r=>r.st==="Đã nộp").map(r=>`<tr>
-        <td><strong>${esc(r.name)}</strong></td>
-        <td>${statusBadge(r.st)}</td>
-        <td>${r.submitted && r.submitted.NgayNop ? esc(r.submitted.NgayNop) : "—"}</td>
-        <td>${r.submitted && r.submitted.LinkFilePDF ? `<a class="icon-btn" href="${esc(r.submitted.LinkFilePDF)}" target="_blank">${ICONS.external}Xem PDF</a>` : "—"}</td>
-      </tr>`).join("");
-    document.getElementById("bc-td-summary").innerHTML = `
-      <span class="chip">Đã nộp: <b>${daNop}</b>/${list.length}</span>
-      <span class="chip">Trễ hạn: <b>${treHan}</b></span>
-      <span class="chip">Chưa đến hạn: <b>${chuaDen}</b></span>
-      ${kyRow && kyRow.HanNop ? `<span class="chip">Hạn nộp: <b>${esc(kyRow.HanNop)}</b></span>` : ""}
-    `;
-    document.getElementById("bc-td-table").innerHTML = daNop>0 ? `
-      <table><thead><tr><th>Chi bộ</th><th>Trạng thái</th><th>Ngày nộp</th><th></th></tr></thead>
-      <tbody>${submittedRows}</tbody></table>
-    ` : `<div class="empty">Chưa có chi bộ nào nộp báo cáo cho kỳ này.</div>`;
-  };
-  document.getElementById("bc-td-ky").onchange = draw;
-  draw();
-}
-
-function fileToBase64(file){
-  return new Promise((resolve, reject)=>{
-    const reader = new FileReader();
-    reader.onload = ()=> resolve(String(reader.result).split(",")[1] || "");
-    reader.onerror = ()=> reject(new Error("Không đọc được file."));
-    reader.readAsDataURL(file);
-  });
-}
-
-async function postToAppsScript(payload){
-  if(!CONFIG.APPS_SCRIPT_URL){
-    throw new Error("Chưa cấu hình APPS_SCRIPT_URL trong CONFIG (xem hướng dẫn triển khai Google Apps Script).");
-  }
-  // Apps Script Web App chuyển hướng (redirect) sang script.googleusercontent.com khi
-  // gọi cross-origin; ở một số trình duyệt/mạng, bước redirect này bị chặn và báo
-  // nhầm thành lỗi 401 dù quyền truy cập đã đúng. Dùng mode "no-cors" để việc GỬI dữ
-  // liệu không bị chặn bởi giới hạn này (không đọc được nội dung phản hồi trả về,
-  // nhưng dữ liệu vẫn được Apps Script xử lý và ghi vào Sheet/Drive bình thường).
-  try{
-    await fetch(CONFIG.APPS_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {"Content-Type": "text/plain;charset=utf-8"},
-      body: JSON.stringify(payload),
-    });
-  }catch(e){
-    throw new Error("Không kết nối được tới máy chủ. Kiểm tra mạng và URL Apps Script.");
-  }
-  return { ok: true, unverified: true };
 }
 
 function parseVNDate(s){
