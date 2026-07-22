@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ủy ban Kiểm tra Đảng ủy phường Cầu Kiệu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#1B3A6B;
+  --red-dark:#14294F;
+  --red-deep:#0D1D38;
+  --gold:#D9A441;
+  --gold-deep:#C08E30;
+  --gold-soft:#F4E6C9;
+  --ink:#201c1a;
+  --ink-soft:#6b625a;
+  --paper:#ffffff;
+  --paper-2:#F4F6F9;
+  --card:#ffffff;
+  --line:#E2E6ED;
+  --green:#3f6b4f;
+  --green-bg:#e7f0e9;
+  --amber:#9a6b23;
+  --amber-bg:#f5ecd8;
+  --danger:#B3282D;
+  --danger-bg:#f7e6e2;
+  --gray-bg:#f1ede2;
+  --stripe:#F1F3F7;
+  --radius:10px;
+  --sidebar-w:250px;
+  --topbar-strip-h:92px;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Be Vietnam Pro',sans-serif;background:var(--paper);color:var(--ink);}
+h1,h2,h3,.serif{font-family:'Noto Serif',serif;}
+a{color:inherit;}
+button,select,input{font-family:inherit;}
+
+/* ===== Layout ===== */
+.app{display:flex;flex-direction:column;min-height:100vh;}
+.site-header{
+  background:var(--red-dark);color:#f2e9d8;padding:16px 32px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;
+}
+.site-sticky-top{position:sticky;top:0;z-index:8;}
+.site-header-brand{display:flex;align-items:center;gap:14px;}
+.site-header-tagline{font-family:'Noto Serif',serif;font-size:19px;font-weight:700;letter-spacing:.3px;
+  color:#ffffff;text-align:center;line-height:1.35;max-width:640px;justify-self:center;}
+.site-header-right{display:flex;align-items:center;justify-content:flex-end;gap:22px;flex-wrap:wrap;}
+.site-logo{height:56px;width:auto;object-fit:contain;flex-shrink:0;}
+.site-title{font-family:'Noto Serif',serif;font-weight:700;font-size:18px;line-height:1.35;letter-spacing:.3px;text-transform:uppercase;color:var(--gold);}
+.site-header-right .clock{display:flex;align-items:center;gap:9px;font-size:13px;font-variant-numeric:tabular-nums;opacity:.95;color:#f2e9d8;flex-shrink:0;}
+.site-header-right .clock svg{width:16px;height:16px;opacity:.9;}
+.site-header-right .clock b{font-weight:600;font-size:14.5px;}
+
+.tab-nav{
+  background:var(--red);display:flex;flex-wrap:wrap;gap:2px;padding:0 24px;
+  border-bottom:2px solid var(--gold-deep);
+}
+.nav-item{
+  display:flex;align-items:center;gap:8px;padding:13px 16px;border-radius:0;
+  font-size:12.5px;color:#e7dcc4;cursor:pointer;transition:background .15s;
+  border:none;background:none;white-space:nowrap;
+}
+.nav-item svg{flex-shrink:0;width:16px;height:16px;opacity:.85;}
+.nav-item:hover{background:rgba(255,255,255,.1);}
+.nav-item.active{background:var(--gold);color:var(--red-dark);font-weight:600;}
+.nav-item.active svg{opacity:1;}
+
+.main{flex:1;min-width:0;}
+
+.topbar{
+  background:var(--card);border-bottom:1px solid var(--line);padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:5;
+}
+.topbar-left{display:flex;align-items:center;gap:12px;}
+.topbar-left .rule{width:4px;height:24px;background:var(--gold-deep);border-radius:2px;}
+.topbar h1{font-size:19px;margin:0;font-weight:600;}
+.topbar .eyebrow{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.6px;margin:0 0 2px;}
+.search-box{
+  display:flex;align-items:center;gap:8px;background:var(--paper-2);border:1px solid var(--line);
+  border-radius:20px;padding:8px 16px;min-width:260px;
+}
+.search-box input{border:none;background:none;outline:none;font-size:13px;flex:1;color:var(--ink);}
+.search-box svg{width:15px;height:15px;color:var(--ink-soft);flex-shrink:0;}
+
+.content{padding:28px 32px 60px;}
+.page{display:none;}
+.page.active{display:block;}
+
+/* ===== Common bits ===== */
+.lede{color:var(--ink-soft);font-size:13.5px;margin:2px 0 22px;line-height:1.6;}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
+select.filter, input.filter{
+  border:1px solid var(--line);background:var(--card);border-radius:7px;padding:8px 12px;font-size:12.5px;color:var(--ink);
+}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge.green{background:var(--green-bg);color:var(--green);}
+.badge.amber{background:var(--amber-bg);color:var(--amber);}
+.badge.danger{background:var(--danger-bg);color:var(--danger);}
+.badge.gray{background:var(--gray-bg);color:var(--ink-soft);}
+
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+thead th{
+  text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-soft);
+  background:var(--paper-2);padding:11px 14px;font-weight:600;border-bottom:1px solid var(--line);
+}
+tbody td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--line);vertical-align:top;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper-2);}
+tbody tr:hover{background:var(--gold-soft);}
+
+.stack-row:nth-child(even){background:var(--paper-2);}
+
+.card-grid .card:nth-child(even){background:var(--paper-2);}
+.staff-row .staff-card:nth-child(even){background:var(--paper-2);}
+.faq-item:nth-child(even){background:var(--paper-2);}
+.faq-item:nth-child(even) .faq-a-inner{background:var(--paper-2);}
+.icon-btn{
+  display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--card);
+  border-radius:7px;padding:6px 11px;font-size:12px;cursor:pointer;color:var(--red-dark);text-decoration:none;font-weight:500;
+}
+.icon-btn:hover{background:var(--paper-2);}
+.icon-btn svg{width:13px;height:13px;}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;}
+.card h4{margin:0 0 4px;font-size:14px;font-family:'Noto Serif',serif;}
+.card .meta{font-size:11.5px;color:var(--ink-soft);margin-bottom:8px;}
+
+.stack-list{display:flex;flex-direction:column;gap:10px;}
+.stack-row{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;}
+.stack-row .row-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
+.stack-row h4{margin:0;font-size:14.5px;font-family:'Noto Serif',serif;}
+.stack-row .meta{font-size:11.5px;color:var(--ink-soft);white-space:nowrap;}
+.stack-row p{font-size:13px;color:var(--ink-soft);line-height:1.65;margin:6px 0 10px;}
+.stack-row .row-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+
+/* Biểu mẫu - master detail */
+.bm-layout{display:flex;gap:18px;align-items:flex-start;}
+.bm-list{width:250px;flex-shrink:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.bm-list-item{padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer;font-size:12.5px;display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--ink);}
+.bm-list-item:last-child{border-bottom:none;}
+.bm-list-item:hover{background:var(--paper-2);}
+.bm-list-item.active{background:var(--gold);color:var(--red-dark);font-weight:600;}
+.bm-list-item .count{font-size:10.5px;background:var(--paper-2);color:var(--ink-soft);border-radius:10px;padding:1px 8px;flex-shrink:0;}
+.bm-list-item.active .count{background:rgba(0,0,0,.12);color:var(--red-dark);}
+.bm-detail{flex:1;min-width:0;}
+.bm-detail h3{font-size:15px;margin:0 0 12px;font-family:'Noto Serif',serif;}
+
+.empty, .loading{padding:40px 20px;text-align:center;color:var(--ink-soft);font-size:13px;}
+
+/* Home */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px;}
+
+.contact-hero{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.contact-info h3{margin:0 0 14px;font-size:16px;color:var(--red-dark);font-family:'Noto Serif',serif;}
+.contact-info dl{margin:0;display:flex;flex-direction:column;gap:12px;}
+.contact-info dt{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.3px;font-weight:600;}
+.contact-info dd{margin:2px 0 0;font-size:13.5px;color:var(--ink);}
+.contact-map{border-radius:8px;overflow:hidden;border:1px solid var(--line);min-height:220px;}
+.contact-map iframe{width:100%;height:100%;min-height:220px;border:0;display:block;}
+.contact-directory{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.contact-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;gap:12px;align-items:flex-start;}
+.contact-card .staff-photo{width:56px;height:56px;border-radius:50%;flex-shrink:0;background-size:cover;background-position:center;background-color:var(--paper-2);display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--ink-soft);}
+.contact-card .cc-body{flex:1;min-width:0;}
+.contact-card .cc-name{font-size:13.5px;font-weight:700;color:var(--ink);}
+.contact-card .cc-role{font-size:11.5px;color:var(--ink-soft);margin-bottom:8px;}
+.contact-card .cc-links{display:flex;flex-direction:column;gap:5px;}
+.contact-card .cc-links a{font-size:11.8px;color:var(--red-dark);text-decoration:none;display:flex;align-items:center;gap:6px;}
+.contact-card .cc-links a:hover{text-decoration:underline;}
+.contact-card .cc-links svg{width:13px;height:13px;flex-shrink:0;}
+@media(max-width:700px){.contact-hero{grid-template-columns:1fr;}}
+.stat-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;}
+.stat-card .num{font-family:'Noto Serif',serif;font-size:28px;font-weight:700;color:var(--red-dark);}
+.stat-card.warn .num{color:var(--danger);}
+.stat-card .label{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+.org-block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-bottom:18px;}
+.org-block h3{margin:0 0 12px;font-size:15px;color:var(--red-dark);font-family:'Noto Serif',serif;display:flex;align-items:center;gap:8px;}
+.org-block > p.org-desc{margin:0;font-size:12.8px;color:var(--ink-soft);line-height:1.7;}
+.org-principles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px;}
+.org-principle{display:flex;gap:9px;align-items:flex-start;font-size:12.3px;color:var(--ink);background:var(--paper-2);border-radius:8px;padding:11px 13px;line-height:1.5;}
+.org-principle svg{flex-shrink:0;width:16px;height:16px;color:var(--gold-deep);margin-top:1px;}
+.org-duties{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.org-duty{display:flex;gap:11px;}
+.org-duty .num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--red-dark);color:#f2e9d8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;font-family:'Noto Serif',serif;}
+.org-duty .txt b{display:block;font-size:12.5px;color:var(--red-dark);margin-bottom:2px;}
+.org-duty .txt p{margin:0;font-size:11.6px;color:var(--ink-soft);line-height:1.55;}
+.org-chart{text-align:center;}
+.org-chart-node{display:inline-block;background:var(--red-dark);color:#f2e9d8;padding:10px 26px;border-radius:8px;font-weight:600;font-size:13px;}
+.org-chart-node.sub{background:var(--gold);color:var(--red-dark);margin-top:10px;}
+.org-chart-line{width:2px;height:16px;background:var(--line);margin:0 auto;}
+.org-chart-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:16px;}
+.org-chart-unit{background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:11.5px;text-align:center;width:150px;color:var(--ink-soft);font-weight:500;}
+.org-note{font-size:11.5px;color:var(--ink-soft);margin-top:16px;text-align:center;}
+.org-footer{display:flex;justify-content:space-between;gap:20px;font-size:11px;color:var(--ink-soft);flex-wrap:wrap;line-height:1.6;}
+.org-footer b{color:var(--red-dark);}
+.section-label{font-size:12.5px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px;}
+.staff-rows{display:flex;flex-direction:column;gap:16px;}
+.staff-row{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;}
+.staff-card{width:279px;flex-shrink:0;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 16px;}
+.staff-photo{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 12px;background:var(--paper-2);
+  background-size:cover;background-position:center;border:2px solid var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;color:var(--ink-soft);font-size:11px;
+}
+.staff-name{font-size:14.5px;font-weight:600;font-family:'Noto Serif',serif;}
+.staff-role{font-size:12.5px;color:var(--ink-soft);margin-top:3px;}
+
+/* Quy trinh - stepper */
+.step-list{position:relative;}
+.step{display:flex;gap:16px;padding-bottom:26px;position:relative;}
+.step:not(:last-child)::before{
+  content:"";position:absolute;left:14px;top:30px;bottom:0;width:1px;background:var(--line);
+}
+.step-num{
+  width:29px;height:29px;border-radius:50%;background:var(--red-dark);color:#f2e9d8;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;z-index:1;
+}
+.step-body h4{margin:2px 0 4px;font-size:14px;}
+.step-line{margin-bottom:8px;}
+.step-line p{margin:0 0 4px;font-size:13px;color:var(--ink-soft);line-height:1.65;}
+.step-tag{font-size:11px;color:var(--amber);margin-bottom:4px;}
+.step-forms{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 8px;}
+
+/* FAQ accordion */
+.faq-item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;}
+.faq-q{padding:13px 16px;font-size:13.5px;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.faq-q svg{width:14px;height:14px;flex-shrink:0;transition:transform .15s;color:var(--ink-soft);}
+.faq-item.open .faq-q svg{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .2s ease;font-size:13px;color:var(--ink-soft);line-height:1.6;}
+.faq-item.open .faq-a{max-height:400px;}
+.faq-a-inner{padding:0 16px 15px;}
+.faq-topic{display:inline-block;font-size:10.5px;color:var(--red-dark);background:var(--gold-soft);padding:2px 8px;border-radius:10px;margin-top:8px;}
+
+/* Lich cong viec */
+.view-toggle{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;}
+.view-toggle button{border:none;background:var(--card);padding:7px 14px;font-size:12px;cursor:pointer;color:var(--ink-soft);}
+.view-toggle button.active{background:var(--red-dark);color:#f2e9d8;font-weight:600;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;max-width:900px;}
+.task-detail{
+  max-width:520px;margin-top:20px;background:var(--card);border:1px solid var(--gold-deep);
+  border-radius:var(--radius);padding:18px 20px;
+}
+.task-detail h4{margin:0 0 12px;font-size:15px;font-family:'Noto Serif',serif;color:var(--red-dark);}
+.cal-dow{font-size:10.5px;color:var(--ink-soft);text-align:center;padding-bottom:4px;font-weight:600;}
+.cal-cell{background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:78px;padding:6px;font-size:10.5px;}
+.cal-cell .d{font-weight:600;color:var(--ink-soft);margin-bottom:3px;}
+.cal-cell.empty{background:transparent;border:none;}
+.cal-task{background:var(--gold-soft);color:var(--red-dark);border-radius:4px;padding:2px 5px;margin-bottom:2px;font-size:9.5px;line-height:1.3;cursor:pointer;}
+.cal-task:hover{background:var(--gold-deep);color:#fff;}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(32,28,26,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--card);border-radius:14px;max-width:480px;width:100%;max-height:82vh;overflow-y:auto;padding:26px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.25);}
+.modal-close{position:absolute;top:14px;right:16px;border:none;background:none;font-size:18px;cursor:pointer;color:var(--ink-soft);line-height:1;}
+.modal-close:hover{color:var(--ink);}
+.modal-box h3{margin:0 0 18px;font-size:17px;font-family:'Noto Serif',serif;padding-right:24px;line-height:1.4;}
+.modal-field{margin-bottom:13px;font-size:13px;}
+.modal-field span{display:block;font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.modal-field b{font-weight:500;}
+.modal-field .doc-text{line-height:1.6;}
+
+/* Báo cáo 2 chiều */
+.rp-field{margin-bottom:14px;}
+.rp-field label{display:block;font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:.3px;}
+.rp-field input[type=text], .rp-field input[type=date], .rp-field input[type=password], .rp-field input[type=file], .rp-field select{
+  width:100%;border:1px solid var(--line);background:var(--paper-2);border-radius:7px;padding:9px 12px;font-size:13px;color:var(--ink);
+}
+.rp-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.rp-summary .chip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--ink-soft);}
+.rp-summary .chip b{color:var(--ink);}
+.rp-msg{margin-top:10px;font-size:12.5px;}
+.rp-msg.ok{color:var(--green);}
+.rp-msg.err{color:var(--danger);}
+.ky-scroll{max-height:172px;overflow-y:auto;border-radius:var(--radius);box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.ky-scroll table{box-shadow:none;border-radius:0;}
+.ky-scroll thead th{position:sticky;top:0;z-index:1;}
+.ky-scroll td.ky-noidung{white-space:normal;word-break:break-word;line-height:1.5;}
+
+/* Search results */
+.search-group{margin-bottom:26px;}
+.search-group-title{
+  display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--red-dark);
+  text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line);
+}
+.search-group-title svg{width:16px;height:16px;}
+.search-group-title .count{
+  background:var(--gold-soft);color:var(--red-dark);font-size:11px;font-weight:700;
+  padding:1px 8px;border-radius:10px;margin-left:2px;
+}
+.search-hit{
+  background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 14px;
+  margin-bottom:6px;cursor:pointer;transition:background .12s;
+}
+.search-hit:hover{background:var(--paper-2);border-color:var(--gold-deep);}
+.search-hit .sh-title{font-size:13.5px;font-weight:500;}
+.search-hit .sh-sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+
+@media(max-width:820px){
+  .site-header{padding:14px 16px;}
+  .site-header-tagline{display:none;}
+  .tab-nav{padding:0 12px;overflow-x:auto;}
+  .nav-item span.label{display:none;}
+  .stat-row{grid-template-columns:1fr;}
+  .search-box{min-width:140px;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="site-sticky-top">
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+      <div class="site-header-brand">
+        <img class="site-logo" src="https://drive.google.com/thumbnail?id=1iQ5WCaEHv3nxmpImAf0tKYtI-1s_CFVH&sz=w200" alt="Logo UBKT">
+        <div class="site-title">Ủy ban Kiểm tra<br>Đảng ủy phường Cầu Kiệu</div>
+      </div>
+      <div class="site-header-tagline">"Giám sát để mở rộng, kiểm tra để răn đe, kỷ luật để xây dựng"</div>
+      <div class="site-header-right">
+        <span class="clock" id="liveClock">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <span id="clockText">—</span>
+        </span>
+      </div>
+    </header>
+
+    <!-- ============ TAB NAV NGANG ============ -->
+    <nav class="tab-nav" id="navList"></nav>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="rule"></div>
+        <div>
+          <p class="eyebrow">Cổng nghiệp vụ kiểm tra, giám sát</p>
+          <h1 id="pageTitle">Trang chủ</h1>
+        </div>
+      </div>
+      <div class="search-box" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="globalSearch" type="text" placeholder="Tìm văn bản, biểu mẫu, câu hỏi...">
+      </div>
+    </div>
+    <div class="content" id="content">
+      <!-- pages injected by JS -->
+    </div>
+    <footer style="padding:14px 32px 24px;font-size:10.5px;color:var(--ink-soft);border-top:1px solid var(--line);">
+      Dữ liệu cập nhật từ Google Sheets · © UBKT phường Cầu Kiệu
+    </footer>
+  </div>
+</div>
+
+<div class="modal-overlay" id="taskModal" onclick="if(event.target===this) closeLichModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeLichModal()">✕</button>
+    <div id="taskModalBody"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   CẤU HÌNH — thay SHEET_ID bằng ID Google Sheet thật của bạn
+   Lấy từ URL: docs.google.com/spreadsheets/d/ĐÂY_LÀ_ID/edit
+   ========================================================= */
+const CONFIG = {
+  SHEET_ID: "1fbMYpbOBySi9D4V-uL_Noc4naKYw3PC9AtXeUwVptVU",
+  SHEETS: {
+    thanhvien: "ThanhVienUBKT",
+    vanban: "VanBanQuyPham",
+    quytrinh: "QuyTrinhNghiepVu",
+    bieumau: "BieuMau",
+    hoso: "HoSoMau",
+    kehoach: "KeHoachCongTac",
+    kinhnghiem: "KinhNghiemNghiepVu",
+    cauhoi: "CauHoiNghiepVu",
+    lich: "LichCongViec",
+    kybaocao: "KyBaoCao",
+    danhsachchibo: "DanhSachChiBo",
+    baocao: "BaoCao",
+  },
+  // Dán URL Web App của Google Apps Script sau khi triển khai (xem hướng dẫn đi kèm).
+  // Ví dụ: "https://script.google.com/macros/s/AKfycb.../exec"
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwlNOtKZ3Xr7JGXnou5nQLxtH9CIy7AvcjWQGjzyGUZn0S0ZopjZBIYir9G5jYdK05o/exec", // <-- dán URL mới sau khi triển khai lại theo HUONG_DAN_TU_DAU.md
+};
+
+/* =========================================================
+   ICONS (inline SVG, stroke based)
+   ========================================================= */
+const ICONS = {
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>',
+  doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>',
+  flow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M6 9v6"/><path d="M9 6h6a3 3 0 0 1 3 3v0"/><circle cx="18" cy="6" r="3" transform="translate(0,3)"/></svg>',
+  form:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6v4H9z"/><path d="M9 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="16" y2="16"/></svg>',
+  folder:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+  plan:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>',
+  bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.5.4.9 1 .9 1.8v.5h6.2v-.5c0-.7.4-1.4.9-1.8A7 7 0 0 0 12 2z"/></svg>',
+  question:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><path d="M8 13h2M8 17h2M14 13h2M14 17h2"/></svg>',
+  download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>',
+  external:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>',
+  chevron:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
+  upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M5 21h14"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+  contact:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+};
+
+/* =========================================================
+   NAV DEFINITION
+   ========================================================= */
+const PAGES = [
+  {id:"home", label:"Trang chủ", icon:"home"},
+  {id:"baocao", label:"Báo cáo", icon:"upload"},
+  {id:"vanban", label:"Văn bản các cấp", icon:"doc"},
+  {id:"kehoach", label:"Kế hoạch - Chương trình", icon:"plan"},
+  {id:"bieumau", label:"Biểu mẫu", icon:"form"},
+  {id:"lich", label:"Lịch công việc", icon:"cal"},
+  {id:"lienhe", label:"Liên hệ", icon:"contact"},
+];
+
+const navList = document.getElementById("navList");
+PAGES.forEach(p=>{
+  const btn = document.createElement("button");
+  btn.className = "nav-item" + (p.id==="home" ? " active" : "");
+  btn.dataset.page = p.id;
+  btn.innerHTML = ICONS[p.icon] + `<span class="label">${p.label}</span>`;
+  btn.onclick = ()=>showPage(p.id);
+  navList.appendChild(btn);
+});
+
+const content = document.getElementById("content");
+PAGES.forEach(p=>{
+  const sec = document.createElement("section");
+  sec.className = "page" + (p.id==="home" ? " active" : "");
+  sec.id = "page-"+p.id;
+  sec.innerHTML = `<div class="loading">Đang tải dữ liệu...</div>`;
+  content.appendChild(sec);
+});
+
+const loaded = {}; // cache: sheetName -> rows
+let currentPageId = "home";
+
+function showPage(id){
+  currentPageId = id;
+  document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("active", b.dataset.page===id));
+  document.querySelectorAll(".page").forEach(s=>s.classList.toggle("active", s.id==="page-"+id));
+  document.getElementById("pageTitle").textContent = PAGES.find(p=>p.id===id).label;
+  const searchBox = document.querySelector(".search-box");
+  const searchInputEl = document.getElementById("globalSearch");
+  searchInputEl.value = "";
+  if(id==="home"){
+    searchBox.style.display = "none";
+  }else{
+    searchBox.style.display = "";
+    searchInputEl.placeholder = SEARCH_PLACEHOLDERS[id] || "Tìm kiếm...";
+  }
+  renderPage(id);
+}
+
+/* =========================================================
+   GOOGLE SHEETS FETCH (gviz)
+   ========================================================= */
+async function fetchSheet(sheetName){
+  if(loaded[sheetName]) return loaded[sheetName];
+  let json;
+  try{
+    json = await loadSheetFetch(sheetName);
+  }catch(e1){
+    console.warn(`fetch() thất bại cho "${sheetName}", thử JSONP...`, e1.message);
+    try{
+      json = await loadSheetJSONP(sheetName);
+    }catch(e2){
+      console.warn(`JSONP thất bại cho "${sheetName}", thử lại lần 2...`, e2.message);
+      json = await loadSheetJSONP(sheetName);
+    }
+  }
+  let cols = json.table.cols.map(c=>c.label || "");
+  let dataRows = json.table.rows || [];
+  const noHeaders = cols.every(c=>!c);
+  if(noHeaders && dataRows.length){
+    cols = dataRows[0].c.map(cell=> cell ? String(cell.v) : "");
+    dataRows = dataRows.slice(1);
+  }
+  const rows = dataRows.map(r=>{
+    const obj = {};
+    cols.forEach((c,i)=>{
+      if(!c) return;
+      const cell = r.c ? r.c[i] : null;
+      obj[c] = cell ? (cell.f !== undefined && cell.f !== null ? cell.f : cell.v) : "";
+    });
+    return obj;
+  });
+  loaded[sheetName] = rows;
+  return rows;
+}
+
+async function loadSheetFetch(sheetName){
+  const url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+  const res = await fetch(url, {cache:"no-store"});
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  const text = await res.text();
+  const start = text.indexOf("{");
+  const end = text.lastIndexOf("}");
+  if(start===-1 || end===-1) throw new Error("Phản hồi không đúng định dạng");
+  return JSON.parse(text.substring(start, end+1));
+}
+
+function loadSheetJSONP(sheetName){
+  return new Promise((resolve, reject)=>{
+    const cbName = "gvizCB_" + sheetName.replace(/[^a-zA-Z0-9]/g,"") + "_" + Date.now() + "_" + Math.floor(Math.random()*10000);
+    const tqx = `out:json;reqId:0;responseHandler:${cbName}`;
+    const url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=${encodeURIComponent(tqx)}&sheet=${encodeURIComponent(sheetName)}`;
+    const script = document.createElement("script");
+    let done = false;
+    const cleanup = ()=>{ delete window[cbName]; script.remove(); };
+    window[cbName] = (json)=>{
+      if(done) return;
+      done = true;
+      cleanup();
+      if(json && json.status === "error"){
+        const msg = (json.errors && json.errors[0] && json.errors[0].detailed_message) || "Sheet lỗi";
+        reject(new Error(`Sheet "${sheetName}": ${msg}`));
+      } else {
+        resolve(json);
+      }
+    };
+    script.onerror = ()=>{
+      if(done) return;
+      done = true;
+      cleanup();
+      reject(new Error(`Không kết nối được tới Google Sheets cho sheet "${sheetName}". Kiểm tra kết nối mạng và quyền chia sẻ.`));
+    };
+    setTimeout(()=>{
+      if(done) return;
+      done = true;
+      cleanup();
+      reject(new Error(`Hết thời gian chờ tải sheet "${sheetName}".`));
+    }, 20000);
+    document.body.appendChild(script);
+  });
+}
+
+function driveThumb(url){
+  // convert a Google Drive share link to a direct-viewable thumbnail
+  if(!url) return "";
+  const m = url.match(/[-\w]{25,}/);
+  return m ? `https://drive.google.com/thumbnail?id=${m[0]}&sz=w200` : url;
+}
+
+function esc(s){
+  return (s===undefined||s===null) ? "" : String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+
+/* Ô tìm kiếm tổng ở góc trên chỉ để hiển thị — không còn ảnh hưởng đến
+   bất kỳ tab nào. Luôn trả về chuỗi rỗng để các bộ lọc trong từng tab
+   hoạt động bình thường, không bị ô này can thiệp. */
+const pageRedraw = {};
+function getSearchQuery(){
+  return "";
+}
+function matchAny(fields, q){
+  if(!q) return true;
+  return fields.some(v=>(v||"").toString().toLowerCase().includes(q));
+}
+const SEARCH_PLACEHOLDERS = {
+  vanban: "Tìm theo tên văn bản, số hiệu...",
+  quytrinh: "Tìm nội dung trong các bước...",
+  bieumau: "Tìm theo tên biểu mẫu...",
+  hoso: "Tìm theo tên hồ sơ, cuộc giám sát...",
+  kehoach: "Tìm theo tên kế hoạch, nội dung...",
+  kinhnghiem: "Tìm theo tình huống, cách xử lý...",
+  cauhoi: "Tìm câu hỏi, câu trả lời...",
+  lich: "Tìm theo nhiệm vụ, người phụ trách...",
+  baocao: "Tìm theo kỳ, tên chi bộ...",
+};
+
+function statusBadge(status){
+  const s = (status||"").toLowerCase();
+  if(s.includes("trễ")) return `<span class="badge danger">${esc(status)}</span>`;
+  if(s.includes("hoàn thành") || s.includes("còn hiệu lực") || s.includes("đã nộp")) return `<span class="badge green">${esc(status)}</span>`;
+  if(s.includes("đang")) return `<span class="badge amber">${esc(status)}</span>`;
+  return `<span class="badge gray">${esc(status||"—")}</span>`;
+}
+
+/* =========================================================
+   RENDER: dispatch
+   ========================================================= */
+async function renderPage(id){
+  const sec = document.getElementById("page-"+id);
+  try{
+    if(id==="home") await renderHome(sec);
+    else if(id==="vanban") await renderVanBan(sec);
+    else if(id==="quytrinh") await renderQuyTrinh(sec);
+    else if(id==="bieumau") await renderBieuMau(sec);
+    else if(id==="hoso") await renderHoSo(sec);
+    else if(id==="kehoach") await renderKeHoach(sec);
+    else if(id==="kinhnghiem") await renderKinhNghiem(sec);
+    else if(id==="cauhoi") await renderCauHoi(sec);
+    else if(id==="lich") await renderLich(sec);
+    else if(id==="baocao") await renderBaoCao(sec);
+    else if(id==="lienhe") await renderLienHe(sec);
+  }catch(e){
+    console.error(e);
+    sec.innerHTML = `<div class="empty">Không tải được dữ liệu.<br><small style="color:var(--danger)">${esc(e.message)}</small><br><small>Kiểm tra: (1) SHEET_ID đúng, (2) Sheet đã bật "Bất kỳ ai có link – Người xem", (3) tên sheet con khớp chính xác (phân biệt hoa/thường).</small></div>`;
+  }
+}
+
+/* ---------- HOME ---------- */
+async function renderHome(sec){
+  sec.innerHTML = `<div class="loading">Đang tải dữ liệu...</div>`;
+  const [staff] = await Promise.all([
+    fetchSheet(CONFIG.SHEETS.thanhvien).catch(()=>[]),
+  ]);
+  staff.sort((a,b)=>(Number(a.ThuTuHienThi)||99)-(Number(b.ThuTuHienThi)||99));
+
+  const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+  const duties = [
+    ["Nghiên cứu, đề xuất và thực hiện","Tham mưu, xây dựng chương trình, kế hoạch, nội dung kiểm tra, giám sát, kỷ luật đảng; xây dựng các nghị quyết, quy chế, quy trình... về công tác kiểm tra, giám sát của Đảng ủy phường."],
+    ["Chuẩn bị hồ sơ, tài liệu","Chuẩn bị hồ sơ, tài liệu triển khai thực hiện việc kiểm tra, giám sát, kỷ luật đảng và kiểm soát tài sản, thu nhập."],
+    ["Đề xuất, tham mưu","Đề xuất ý kiến góp ý trong lãnh đạo, chỉ đạo của Đảng ủy, Ban thường vụ; tham gia ý kiến các trường hợp do cơ quan chức năng đề nghị khen thưởng."],
+    ["Tuyên truyền, phổ biến","Tuyên truyền, phổ biến, nghiên cứu, sơ kết, tổng kết về công tác kiểm tra, giám sát và thi hành kỷ luật đảng trong Đảng bộ phường."],
+    ["Tổ chức công tác và quản trị nội bộ","Xây dựng chương trình, kế hoạch công tác; xây dựng tổ chức, cán bộ, thực hiện chế độ, chính sách; kiểm tra, giám sát hoạt động của cơ quan và Ủy ban kiểm tra cấp ủy trực thuộc; ứng dụng công nghệ thông tin."],
+    ["Hướng dẫn, kiểm tra, giám sát","Hướng dẫn, kiểm tra, giám sát cấp ủy, tổ chức đảng, đảng viên; chỉ đạo, hướng dẫn nghiệp vụ công tác kiểm tra, giám sát, thi hành kỷ luật đảng."],
+    ["Thẩm định, thẩm tra","Thẩm định, thẩm tra đề án, văn bản của các cơ quan, đơn vị liên quan trước khi trình Đảng ủy, Ban thường vụ Đảng ủy phường."],
+    ["Phối hợp công tác","Phối hợp với các ban xây dựng Đảng, Văn phòng Đảng ủy, các cơ quan liên quan trong thực hiện nhiệm vụ kiểm tra, giám sát và thi hành kỷ luật đảng."],
+    ["Đào tạo, bồi dưỡng","Phối hợp đào tạo, bồi dưỡng chuyên môn, nghiệp vụ về công tác kiểm tra, giám sát và kỷ luật đảng cho cấp ủy viên, cán bộ, công chức và tổ chức cơ sở đảng."],
+    ["Nhiệm vụ khác","Thực hiện các nhiệm vụ khác do Ban thường vụ, Thường trực Đảng ủy phường và Ủy ban kiểm tra Đảng ủy phường giao."],
+  ];
+  const principles = [
+    "Tuân thủ Điều lệ Đảng và các quy định của Đảng.",
+    "Công khai, dân chủ, khách quan, thận trọng.",
+    "Đoàn kết, kỷ cương, liêm khiết, hiệu quả.",
+    "Chịu sự lãnh đạo của Đảng ủy, sự chỉ đạo của Ủy ban kiểm tra Đảng ủy phường.",
+  ];
+
+  sec.innerHTML = `
+    <p class="lede">Cổng thông tin nghiệp vụ kiểm tra, giám sát và thi hành kỷ luật Đảng của Ủy ban Kiểm tra Đảng ủy phường Cầu Kiệu. Toàn bộ văn bản, kế hoạch, biểu mẫu và báo cáo nghiệp vụ được cập nhật trực tiếp từ hệ thống dữ liệu dùng chung.</p>
+
+    <div class="org-block">
+      <h3>1. Tổ chức bộ máy</h3>
+      <div class="staff-rows">
+        ${staff.length ? renderStaffRows(staff) : `<div class="empty">Chưa có dữ liệu nhân sự trong sheet ThanhVienUBKT.</div>`}
+      </div>
+    </div>
+
+    <div class="org-block">
+      <h3>2. Chức năng</h3>
+      <p class="org-desc">Là cơ quan tham mưu, giúp Ủy ban kiểm tra Đảng ủy phường thực hiện các nhiệm vụ, quyền hạn về công tác kiểm tra, giám sát và kỷ luật đảng trong Đảng bộ phường theo quy định của Điều lệ Đảng và thực hiện các nhiệm vụ do Đảng ủy, Ban thường vụ Đảng ủy phường giao; đồng thời, là cơ quan chuyên môn, nghiệp vụ về công tác kiểm tra, giám sát và kỷ luật đảng của Đảng ủy phường.</p>
+    </div>
+
+    <div class="org-block">
+      <h3>Nguyên tắc hoạt động</h3>
+      <div class="org-principles">
+        ${principles.map(p=>`<div class="org-principle">${CHECK}<span>${p}</span></div>`).join("")}
+      </div>
+    </div>
+
+    <div class="org-block">
+      <h3>3. Nhiệm vụ chủ yếu</h3>
+      <div class="org-duties">
+        ${duties.map((d,i)=>`
+          <div class="org-duty">
+            <div class="num">${String(i+1).padStart(2,"0")}</div>
+            <div class="txt"><b>${esc(d[0])}</b><p>${esc(d[1])}</p></div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderStaffRows(staff){
+  const row1 = staff.slice(0,3);
+  const row2 = staff.slice(3);
+  const cardHtml = (s)=>`
+    <div class="staff-card">
+      <div class="staff-photo" style="${s.AnhDaiDien ? `background-image:url('${esc(driveThumb(s.AnhDaiDien))}')` : ''}">${s.AnhDaiDien ? '' : 'Chưa có ảnh'}</div>
+      <div class="staff-name">${esc(s.HoTen)}</div>
+      <div class="staff-role">${esc(s.ChucVu)}</div>
+    </div>`;
+  return `
+    <div class="staff-row">${row1.map(cardHtml).join("")}</div>
+    ${row2.length ? `<div class="staff-row">${row2.map(cardHtml).join("")}</div>` : ""}
+  `;
+}
+
+/* ---------- VĂN BẢN QUY PHẠM ---------- */
+async function renderVanBan(sec){
+  const rows = await fetchSheet(CONFIG.SHEETS.vanban);
+  const uniq = (key)=>[...new Set(rows.map(r=>r[key]).filter(Boolean))];
+  sec.innerHTML = `
+    <p class="lede">Danh mục văn bản còn hiệu lực liên quan công tác kiểm tra, giám sát: Điều lệ Đảng, Quy định, Hướng dẫn, Quy chế, Quy trình.</p>
+    <div class="toolbar">
+      <select class="filter" id="f-loai"><option value="">Tất cả loại văn bản</option>${uniq("LoaiVanBan").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+      <select class="filter" id="f-hieuluc"><option value="">Tất cả tình trạng</option>${uniq("TinhTrangHieuLuc").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+    </div>
+    <div id="vanban-table"></div>
+  `;
+  const draw = ()=>{
+    const fl = document.getElementById("f-loai").value;
+    const fh = document.getElementById("f-hieuluc").value;
+    const q = getSearchQuery();
+    const filtered = rows.filter(r=> (!fl||r.LoaiVanBan===fl) && (!fh||r.TinhTrangHieuLuc===fh)
+      && matchAny([r.TenVanBan, r.SoHieu, r.CoQuanBanHanh, r.GhiChu], q));
+    document.getElementById("vanban-table").innerHTML = filtered.length ? `
+      <table><thead><tr><th>Loại văn bản · Số hiệu</th><th>Ngày ban hành</th><th>Cơ quan ban hành</th><th>Tình trạng</th><th></th></tr></thead>
+      <tbody>${filtered.map(r=>`
+        <tr>
+          <td><strong>${esc(r.LoaiVanBan)}${r.LoaiVanBan && r.SoHieu ? " · " : ""}${esc(r.SoHieu)}</strong><div style="color:var(--ink-soft);font-size:11.5px;margin-top:2px">${esc(r.TenVanBan)}</div></td>
+          <td>${esc(r.NgayBanHanh)}</td>
+          <td>${esc(r.CoQuanBanHanh)}</td>
+          <td>${statusBadge(r.TinhTrangHieuLuc)}</td>
+          <td>${r.LinkDrive ? `<a class="icon-btn" href="${esc(r.LinkDrive)}" target="_blank">${ICONS.download}Tải</a>` : ""}</td>
+        </tr>`).join("")}</tbody></table>
+    ` : `<div class="empty">Không có văn bản phù hợp.</div>`;
+  };
+  ["f-loai","f-hieuluc"].forEach(id=>document.getElementById(id).onchange=draw);
+  pageRedraw.vanban = draw;
+  draw();
+}
+
+/* ---------- QUY TRÌNH NGHIỆP VỤ ---------- */
+function groupSteps(rows){
+  // Mỗi bước lớn chỉ có 1 dòng đầu ghi SoThuTuBuoc/TenBuoc/ThoiHan.
+  // Các dòng con bên dưới là nội dung chi tiết; dòng con nào cần đính kèm
+  // biểu mẫu thì tự nhập BieuMauLienQuan ngay tại dòng đó (không bắt buộc mọi dòng).
+  const steps = [];
+  let cur = null;
+  rows.forEach(r=>{
+    const stt = (r.SoThuTuBuoc||"").toString().trim();
+    if(stt){
+      cur = { stt, ten: r.TenBuoc||"", lines: [], thoihan: r.ThoiHan||"", cancu: r.CanCuPhapLy||"" };
+      steps.push(cur);
+    }
+    if(!cur){
+      cur = {stt:"", ten:"", lines:[], thoihan:"", cancu:""};
+      steps.push(cur);
+    }
+    if(r.ThoiHan && !cur.thoihan) cur.thoihan = r.ThoiHan;
+    if(r.CanCuPhapLy && !cur.cancu) cur.cancu = r.CanCuPhapLy;
+    if(r.NoiDungChiTiet || r.BieuMauLienQuan){
+      cur.lines.push({ text: r.NoiDungChiTiet||"", forms: parseBieuMauLinks(r.BieuMauLienQuan) });
+    }
+  });
+  return steps;
+}
+
+function parseBieuMauLinks(raw){
+  // Định dạng trong ô: "Tên mẫu 1|link1, Tên mẫu 2|link2"
+  if(!raw) return [];
+  return raw.split(",").map(s=>s.trim()).filter(Boolean).map(item=>{
+    const [ten, link] = item.split("|").map(x=>x && x.trim());
+    return {ten: ten||item, link: link||""};
+  });
+}
+
+async function renderQuyTrinh(sec){
+  const rows = await fetchSheet(CONFIG.SHEETS.quytrinh);
+  const names = [...new Set(rows.map(r=>r.TenQuyTrinh).filter(Boolean))];
+  sec.innerHTML = `
+    <p class="lede">Các quy trình nghiệp vụ được chuẩn hóa theo từng bước thực hiện, kèm biểu mẫu áp dụng ngay tại nội dung cần dùng.</p>
+    <div class="toolbar">
+      <select class="filter" id="f-quytrinh">${names.map(n=>`<option>${esc(n)}</option>`).join("")}</select>
+    </div>
+    <div id="quytrinh-steps"></div>
+  `;
+  const draw = ()=>{
+    const sel = document.getElementById("f-quytrinh").value;
+    const stepsRaw = rows.filter(r=>r.TenQuyTrinh===sel);
+    let steps = groupSteps(stepsRaw);
+    const q = getSearchQuery();
+    if(q){
+      steps = steps.map(s=>{
+        const tenMatch = (s.ten||"").toLowerCase().includes(q);
+        return {...s, lines: tenMatch ? s.lines : s.lines.filter(line=>(line.text||"").toLowerCase().includes(q))};
+      }).filter(s=> (s.ten||"").toLowerCase().includes(q) || s.lines.length);
+    }
+    document.getElementById("quytrinh-steps").innerHTML = steps.length ? `<div class="step-list">${steps.map((s)=>`
+      <div class="step">
+        <div class="step-num">${esc(s.stt)}</div>
+        <div class="step-body">
+          <h4>${esc(s.ten)}</h4>
+          ${s.thoihan ? `<div class="step-tag">⏱ Thời hạn: ${esc(s.thoihan)} ngày</div>` : ""}
+          ${s.lines.map(line=>`
+            <div class="step-line">
+              ${line.text ? `<p>${esc(line.text).replace(/\n/g,"<br>")}</p>` : ""}
+              ${line.forms.length ? `<div class="step-forms">${line.forms.map(f=>`
+                <a class="icon-btn" href="${esc(f.link)}" target="_blank">${ICONS.download}${esc(f.ten)}</a>`).join("")}</div>` : ""}
+            </div>`).join("")}
+          ${s.cancu ? `<div class="step-tag">📖 Căn cứ: ${esc(s.cancu)}</div>` : ""}
+        </div>
+      </div>`).join("")}</div>` : `<div class="empty">Không tìm thấy nội dung phù hợp.</div>`;
+  };
+  document.getElementById("f-quytrinh").onchange = draw;
+  pageRedraw.quytrinh = draw;
+  if(names.length) draw(); else document.getElementById("quytrinh-steps").innerHTML = `<div class="empty">Chưa có dữ liệu quy trình.</div>`;
+}
+
+/* ---------- BIỂU MẪU ---------- */
+async function renderBieuMau(sec){
+  const [forms, procRows] = await Promise.all([
+    fetchSheet(CONFIG.SHEETS.bieumau),
+    fetchSheet(CONFIG.SHEETS.quytrinh).catch(()=>[]),
+  ]);
+
+  // Danh sách quy trình duy nhất, theo đúng thứ tự xuất hiện trong sheet QuyTrinhNghiepVu
+  const procNames = [];
+  procRows.forEach(r=>{ if(r.TenQuyTrinh && !procNames.includes(r.TenQuyTrinh)) procNames.push(r.TenQuyTrinh); });
+  // Phòng khi có biểu mẫu gắn quy trình lạ (không có trong QuyTrinhNghiepVu) -> vẫn gom nhóm hiển thị thêm
+  [...new Set(forms.map(f=>f.ApDungChoQuyTrinh).filter(Boolean))].forEach(n=>{
+    if(!procNames.includes(n)) procNames.push(n);
+  });
+
+  sec.innerHTML = `
+    <p class="lede">Danh sách tra cứu nhanh toàn bộ biểu mẫu: Quyết định, Kế hoạch, Thông báo, Báo cáo, Biên bản, Đề cương. Để xem biểu mẫu áp dụng cho từng bước cụ thể, vào tab "Quy trình nghiệp vụ".</p>
+    <div class="toolbar">
+      <div class="view-toggle">
+        <button id="bm-view-proc" class="active">Theo quy trình</button>
+        <button id="bm-view-all">Xem tất cả</button>
+      </div>
+    </div>
+    <div id="bm-proc-view"></div>
+    <div id="bm-all-view" style="display:none"></div>
+  `;
+
+  /* ----- Chế độ: theo quy trình (master-detail) ----- */
+  let refreshCurrentView = ()=>{};
+  function drawProcView(){
+    const wrap = document.getElementById("bm-proc-view");
+    if(!procNames.length){
+      wrap.innerHTML = `<div class="empty">Chưa có quy trình nào trong sheet QuyTrinhNghiepVu.</div>`;
+      return;
+    }
+    let current = procNames[0];
+    const renderDetail = ()=>{
+      const q = getSearchQuery();
+      const items = forms.filter(f=>f.ApDungChoQuyTrinh===current && matchAny([f.TenBieuMau, f.LoaiBieuMau], q));
+      document.querySelectorAll(".bm-list-item").forEach(el=>el.classList.toggle("active", el.dataset.name===current));
+      document.getElementById("bm-detail").innerHTML = `
+        <h3>${esc(current)} <span style="font-weight:400;color:var(--ink-soft);font-size:12.5px">(${items.length} biểu mẫu)</span></h3>
+        ${items.length ? `
+          <table><thead><tr><th>Tên biểu mẫu</th><th>Loại</th><th>Phiên bản</th><th></th></tr></thead>
+          <tbody>${items.map(r=>`
+            <tr><td><strong>${esc(r.TenBieuMau)}</strong></td><td>${esc(r.LoaiBieuMau)}</td><td>${esc(r.PhienBan)}</td>
+            <td>${r.LinkDrive ? `<a class="icon-btn" href="${esc(r.LinkDrive)}" target="_blank">${ICONS.download}Tải</a>` : ""}</td></tr>`).join("")}</tbody></table>
+        ` : `<div class="empty">Không có biểu mẫu phù hợp.</div>`}
+      `;
+    };
+    wrap.innerHTML = `
+      <div class="bm-layout">
+        <div class="bm-list">
+          ${procNames.map(n=>{
+            const c = forms.filter(f=>f.ApDungChoQuyTrinh===n).length;
+            return `<div class="bm-list-item" data-name="${esc(n)}"><span>${esc(n)}</span><span class="count">${c}</span></div>`;
+          }).join("")}
+        </div>
+        <div class="bm-detail" id="bm-detail"></div>
+      </div>
+    `;
+    wrap.querySelectorAll(".bm-list-item").forEach(el=>{
+      el.onclick = ()=>{ current = el.dataset.name; renderDetail(); };
+    });
+    refreshCurrentView = renderDetail;
+    renderDetail();
+  }
+
+  /* ----- Chế độ: xem tất cả (bảng + lọc, như trước) ----- */
+  function drawAllView(){
+    const uniq = (key)=>[...new Set(forms.map(r=>r[key]).filter(Boolean))];
+    const wrap = document.getElementById("bm-all-view");
+    wrap.innerHTML = `
+      <div class="toolbar">
+        <select class="filter" id="f-loaibm"><option value="">Tất cả loại biểu mẫu</option>${uniq("LoaiBieuMau").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+        <select class="filter" id="f-quytrinhbm"><option value="">Tất cả quy trình</option>${procNames.map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+      </div>
+      <div id="bieumau-table"></div>
+    `;
+    const draw = ()=>{
+      const fl = document.getElementById("f-loaibm").value;
+      const fp = document.getElementById("f-quytrinhbm").value;
+      const q = getSearchQuery();
+      const filtered = forms.filter(r=>(!fl||r.LoaiBieuMau===fl) && (!fp||r.ApDungChoQuyTrinh===fp)
+        && matchAny([r.TenBieuMau, r.LoaiBieuMau, r.ApDungChoQuyTrinh], q));
+      document.getElementById("bieumau-table").innerHTML = filtered.length ? `
+        <table><thead><tr><th>Tên biểu mẫu</th><th>Loại</th><th>Áp dụng cho quy trình</th><th>Phiên bản</th><th></th></tr></thead>
+        <tbody>${filtered.map(r=>`
+          <tr><td><strong>${esc(r.TenBieuMau)}</strong></td><td>${esc(r.LoaiBieuMau)}</td><td>${esc(r.ApDungChoQuyTrinh)}</td><td>${esc(r.PhienBan)}</td>
+          <td>${r.LinkDrive ? `<a class="icon-btn" href="${esc(r.LinkDrive)}" target="_blank">${ICONS.download}Tải</a>` : ""}</td></tr>`).join("")}</tbody></table>
+      ` : `<div class="empty">Không có biểu mẫu phù hợp.</div>`;
+    };
+    document.getElementById("f-loaibm").onchange = draw;
+    document.getElementById("f-quytrinhbm").onchange = draw;
+    refreshCurrentView = draw;
+    draw();
+  }
+
+  pageRedraw.bieumau = ()=> refreshCurrentView();
+  drawProcView();
+  document.getElementById("bm-view-proc").onclick = ()=>{
+    document.getElementById("bm-view-proc").classList.add("active");
+    document.getElementById("bm-view-all").classList.remove("active");
+    document.getElementById("bm-proc-view").style.display = "";
+    document.getElementById("bm-all-view").style.display = "none";
+  };
+  document.getElementById("bm-view-all").onclick = ()=>{
+    document.getElementById("bm-view-all").classList.add("active");
+    document.getElementById("bm-view-proc").classList.remove("active");
+    document.getElementById("bm-all-view").style.display = "";
+    document.getElementById("bm-proc-view").style.display = "none";
+    drawAllView();
+  };
+}
+
+/* ---------- HỒ SƠ MẪU ---------- */
+async function renderHoSo(sec){
+  const rows = await fetchSheet(CONFIG.SHEETS.hoso);
+  sec.innerHTML = `
+    <p class="lede">Hồ sơ hoàn chỉnh đã được nghiệm thu cho từng cuộc giám sát: Kế hoạch, Đề cương, Quyết định, Giấy mời, Biên bản, Báo cáo, Thông báo kết luận.</p>
+    <div id="hoso-list"></div>
+  `;
+  const draw = ()=>{
+    const q = getSearchQuery();
+    const filtered = rows.filter(r=>matchAny([r.TenCuocGiamSat, r.DanhSachTaiLieu], q));
+    document.getElementById("hoso-list").innerHTML = filtered.length ? `<div class="card-grid">
+      ${filtered.map(r=>`
+        <div class="card">
+          <h4>${esc(r.TenCuocGiamSat)}</h4>
+          <div class="meta">Năm ${esc(r.NamThucHien)}</div>
+          <p style="font-size:12.5px;color:var(--ink-soft);margin:6px 0 10px">${esc(r.DanhSachTaiLieu)}</p>
+          ${r.LinkDrive ? `<a class="icon-btn" href="${esc(r.LinkDrive)}" target="_blank">${ICONS.external}Xem hồ sơ</a>` : ""}
+        </div>`).join("")}
+    </div>` : `<div class="empty">Không có hồ sơ phù hợp.</div>`;
+  };
+  pageRedraw.hoso = draw;
+  draw();
+}
+
+/* ---------- KẾ HOẠCH CÔNG TÁC ---------- */
+async function renderKeHoach(sec){
+  const rows = await fetchSheet(CONFIG.SHEETS.kehoach);
+  const uniq = (key)=>[...new Set(rows.map(r=>r[key]).filter(Boolean))];
+  sec.innerHTML = `
+    <p class="lede">Chương trình, kế hoạch, quyết định về công tác kiểm tra, giám sát.</p>
+    <div class="toolbar">
+      <select class="filter" id="f-loaikh"><option value="">Tất cả loại kế hoạch</option>${uniq("LoaiKeHoach").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+      <select class="filter" id="f-trangthaikh"><option value="">Tất cả trạng thái</option>${uniq("TrangThai").map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+    </div>
+    <div id="kehoach-list"></div>
+  `;
+  const draw = ()=>{
+    const fl = document.getElementById("f-loaikh").value;
+    const ft = document.getElementById("f-trangthaikh").value;
+    const q = getSearchQuery();
+    const filtered = rows.filter(r=> (!fl||r.LoaiKeHoach===fl) && (!ft||r.TrangThai===ft)
+      && matchAny([r.LoaiKeHoach, r.NoiDung], q));
+    document.getElementById("kehoach-list").innerHTML = filtered.length ? `
+      <table><thead><tr><th>Loại kế hoạch</th><th>Năm</th><th>Trạng thái</th><th></th></tr></thead>
+      <tbody>${filtered.map(r=>`
+        <tr>
+          <td><strong>${esc(r.LoaiKeHoach)}</strong><div style="color:var(--ink-soft);font-size:11.5px;margin-top:2px">${esc(r.NoiDung)}</div></td>
+          <td>${esc(r.Nam)}</td>
+          <td>${statusBadge(r.TrangThai)}</td>
+          <td>${r.LinkDrive ? `<a class="icon-btn" href="${esc(r.LinkDrive)}" target="_blank">${ICONS.download}Xem</a>` : ""}</td>
+        </tr>`).join("")}</tbody></table>
+    ` : `<div class="empty">Không có kế hoạch phù hợp.</div>`;
+  };
+  ["f-loaikh","f-trangthaikh"].forEach(id=>document.getElementById(id).onchange=draw);
+  pageRedraw.kehoach = draw;
+  draw();
+}
+
+/* ---------- KINH NGHIỆM NGHIỆP VỤ ---------- */
+async function renderKinhNghiem(sec){
+  const rows = await fetchSheet(CONFIG.SHEETS.kinhnghiem);
+  const uniq = [...new Set(rows.map(r=>r.LinhVucLienQuan).filter(Boolean))];
+  sec.innerHTML = `
+    <p class="lede">Tình huống thực tế, cách xử lý, lỗi thường gặp và bài học kinh nghiệm trong công tác kiểm tra, giám sát.</p>
+    <div class="toolbar">
+      <select class="filter" id="f-linhvuc-kn"><option value="">Tất cả lĩnh vực</option>${uniq.map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+    </div>
+    <div id="kn-list"></div>
+  `;
+  const draw = ()=>{
+    const fv = document.getElementById("f-linhvuc-kn").value;
+    const q = getSearchQuery();
+    const filtered = rows.filter(r=>(!fv||r.LinhVucLienQuan===fv)
+      && matchAny([r.TinhHuong, r.CachXuLy, r.LoiThuongGap, r.BaiHocKinhNghiem], q));
+    document.getElementById("kn-list").innerHTML = filtered.length ? `<div class="stack-list">${filtered.map(r=>`
+      <div class="stack-row">
+        <div class="row-top">
+          <h4>${esc(r.TinhHuong)}</h4>
+          <span class="meta">${esc(r.LinhVucLienQuan)}</span>
+        </div>
+        <p><strong>Cách xử lý:</strong> ${esc(r.CachXuLy)}</p>
+        ${r.LoiThuongGap ? `<p><strong>Lỗi thường gặp:</strong> ${esc(r.LoiThuongGap)}</p>` : ""}
+        ${r.BaiHocKinhNghiem ? `<p><strong>Bài học:</strong> ${esc(r.BaiHocKinhNghiem)}</p>` : ""}
+        ${r.LuuY ? `<p style="color:var(--danger)"><strong>Lưu ý:</strong> ${esc(r.LuuY)}</p>` : ""}
+      </div>`).join("")}</div>` : `<div class="empty">Không có nội dung phù hợp.</div>`;
+  };
+  document.getElementById("f-linhvuc-kn").onchange = draw;
+  pageRedraw.kinhnghiem = draw;
+  draw();
+}
+
+/* ---------- CÂU HỎI NGHIỆP VỤ ---------- */
+async function renderCauHoi(sec){
+  const rows = await fetchSheet(CONFIG.SHEETS.cauhoi);
+  const topics = [...new Set(rows.map(r=>r.ChuDe).filter(Boolean))];
+  sec.innerHTML = `
+    <p class="lede">Bộ câu hỏi thường gặp trong nghiệp vụ kiểm tra, giám sát (${rows.length} câu hỏi). Gõ từ khóa vào ô tìm kiếm phía trên để lọc.</p>
+    <div class="toolbar">
+      <select class="filter" id="f-chude"><option value="">Tất cả chủ đề</option>${topics.map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+    </div>
+    <div id="ch-list"></div>
+  `;
+  const draw = ()=>{
+    const q = getSearchQuery();
+    const ct = document.getElementById("f-chude").value;
+    const filtered = rows.filter(r=> (!ct||r.ChuDe===ct) && matchAny([r.CauHoi, r.CauTraLoi], q));
+    document.getElementById("ch-list").innerHTML = filtered.length ? filtered.map((r,i)=>`
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>${esc(r.CauHoi)}</span>${ICONS.chevron}
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          ${esc(r.CauTraLoi)}
+          ${r.CanCuPhapLy ? `<div style="margin-top:6px;color:var(--ink-soft);font-size:11.5px">Căn cứ: ${esc(r.CanCuPhapLy)}</div>` : ""}
+          ${r.ChuDe ? `<span class="faq-topic">${esc(r.ChuDe)}</span>` : ""}
+        </div></div>
+      </div>`).join("") : `<div class="empty">Không tìm thấy câu hỏi phù hợp.</div>`;
+  };
+  document.getElementById("f-chude").onchange = draw;
+  pageRedraw.cauhoi = draw;
+  draw();
+}
+
+/* ---------- LỊCH CÔNG VIỆC ---------- */
+let currentLichRows = [];
+
+async function renderLich(sec){
+  const rows = await fetchSheet(CONFIG.SHEETS.lich);
+  currentLichRows = rows;
+  const monthOptions = getMonthOptions(rows);
+  const defaultMonth = monthOptions.find(m=>m.isCurrent) || monthOptions[monthOptions.length-1];
+
+  sec.innerHTML = `
+    <p class="lede">Danh sách nhiệm vụ, đơn vị thực hiện, người phụ trách và tiến độ. Bấm vào 1 nhiệm vụ để xem chi tiết và hồ sơ phải nộp.</p>
+    <div class="toolbar">
+      <div class="view-toggle">
+        <button id="btn-view-table" class="active">Bảng</button>
+        <button id="btn-view-cal">Lịch</button>
+      </div>
+      <select class="filter" id="f-thang" style="display:none">
+        ${monthOptions.map(m=>`<option value="${m.key}" ${defaultMonth&&m.key===defaultMonth.key?"selected":""}>${m.label}</option>`).join("")}
+      </select>
+    </div>
+    <div id="lich-table"></div>
+    <div id="lich-cal" style="display:none">
+      <div id="cal-grid-wrap"></div>
+      <div id="lich-detail" class="task-detail" style="display:none"></div>
+    </div>
+  `;
+  const drawTable = ()=>{
+    const q = getSearchQuery();
+    const filtered = rows.map((r,i)=>({r,i})).filter(({r})=>matchAny([r.TenNhiemVu, r.NguoiPhuTrach, r.DonViThucHien, r.HoSoPhaiNop], q));
+    document.getElementById("lich-table").innerHTML = filtered.length ? `
+      <table><thead><tr><th>Nhiệm vụ</th><th>Đơn vị</th><th>Người phụ trách</th><th>Bắt đầu</th><th>Hoàn thành</th><th>Hồ sơ nộp</th><th>Trạng thái</th></tr></thead>
+      <tbody>${filtered.map(({r,i})=>`
+        <tr onclick="openLichTask(${i})" style="cursor:pointer">
+        <td><strong>${esc(r.TenNhiemVu)}</strong></td><td>${esc(r.DonViThucHien)}</td><td>${esc(r.NguoiPhuTrach)}</td>
+        <td>${esc(r.NgayBatDau)}</td><td>${esc(r.NgayHoanThanh)}</td><td>${esc(r.HoSoPhaiNop)}</td><td>${statusBadge(r.TrangThai)}</td></tr>`).join("")}</tbody></table>
+    ` : `<div class="empty">Không có nhiệm vụ phù hợp.</div>`;
+  };
+  drawTable();
+
+  const drawCal = ()=>{
+    const sel = document.getElementById("f-thang").value;
+    document.getElementById("lich-detail").style.display = "none";
+    if(!sel){ document.getElementById("cal-grid-wrap").innerHTML = `<div class="empty">Chưa có dữ liệu để hiển thị lịch.</div>`; return; }
+    const [y,m] = sel.split("-").map(Number);
+    document.getElementById("cal-grid-wrap").innerHTML = buildCalendar(rows, y, m, getSearchQuery());
+  };
+
+  document.getElementById("btn-view-table").onclick = ()=>{
+    document.getElementById("btn-view-table").classList.add("active");
+    document.getElementById("btn-view-cal").classList.remove("active");
+    document.getElementById("lich-table").style.display = "";
+    document.getElementById("lich-cal").style.display = "none";
+    document.getElementById("f-thang").style.display = "none";
+    drawTable();
+  };
+  document.getElementById("btn-view-cal").onclick = ()=>{
+    document.getElementById("btn-view-cal").classList.add("active");
+    document.getElementById("btn-view-table").classList.remove("active");
+    document.getElementById("lich-cal").style.display = "";
+    document.getElementById("lich-table").style.display = "none";
+    document.getElementById("f-thang").style.display = "";
+    drawCal();
+  };
+  document.getElementById("f-thang").onchange = drawCal;
+
+  pageRedraw.lich = ()=>{
+    const calMode = document.getElementById("lich-cal").style.display !== "none";
+    if(calMode) drawCal(); else drawTable();
+  };
+}
+
+function getMonthOptions(rows){
+  const now = new Date();
+  const map = new Map();
+  rows.forEach(r=>{
+    const dt = parseVNDate(r.NgayHoanThanh);
+    if(dt) map.set(`${dt.getFullYear()}-${dt.getMonth()+1}`, {y:dt.getFullYear(), m:dt.getMonth()+1});
+  });
+  map.set(`${now.getFullYear()}-${now.getMonth()+1}`, {y:now.getFullYear(), m:now.getMonth()+1});
+  const arr = [...map.entries()].map(([key,v])=>({
+    key, y:v.y, m:v.m, label:`Tháng ${v.m}/${v.y}`,
+    isCurrent: v.y===now.getFullYear() && v.m===now.getMonth()+1
+  }));
+  arr.sort((a,b)=> a.y-b.y || a.m-b.m);
+  return arr;
+}
+
+function showTaskDetailInline(idx){
+  const r = currentLichRows[idx];
+  if(!r) return;
+  const panel = document.getElementById("lich-detail");
+  panel.style.display = "block";
+  panel.innerHTML = `
+    <h4>${esc(r.TenNhiemVu)}</h4>
+    <div class="modal-field"><span>Đơn vị thực hiện</span><b>${esc(r.DonViThucHien)||"—"}</b></div>
+    <div class="modal-field"><span>Người phụ trách</span><b>${esc(r.NguoiPhuTrach)||"—"}</b></div>
+    <div class="modal-field"><span>Ngày bắt đầu</span><b>${esc(r.NgayBatDau)||"—"}</b></div>
+    <div class="modal-field"><span>Ngày hoàn thành</span><b>${esc(r.NgayHoanThanh)||"—"}</b></div>
+    <div class="modal-field"><span>Trạng thái</span>${statusBadge(r.TrangThai)}</div>
+    <div class="modal-field"><span>Hồ sơ phải nộp</span>${formatHoSoNop(r.HoSoPhaiNop)}</div>
+  `;
+  panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function formatHoSoNop(raw){
+  if(!raw) return "—";
+  const parts = String(raw).split(/(https?:\/\/[^\s,]+)/g);
+  return parts.map(p=>{
+    if(/^https?:\/\//.test(p)){
+      return `<a class="icon-btn" href="${esc(p)}" target="_blank" style="margin:6px 0">${ICONS.external}Mở file</a>`;
+    }
+    return p ? `<span class="doc-text">${esc(p).replace(/\n/g,"<br>")}</span>` : "";
+  }).join("");
+}
+
+function openLichTask(idx){
+  const r = currentLichRows[idx];
+  if(!r) return;
+  document.getElementById("taskModalBody").innerHTML = `
+    <h3>${esc(r.TenNhiemVu)}</h3>
+    <div class="modal-field"><span>Đơn vị thực hiện</span><b>${esc(r.DonViThucHien)||"—"}</b></div>
+    <div class="modal-field"><span>Người phụ trách</span><b>${esc(r.NguoiPhuTrach)||"—"}</b></div>
+    <div class="modal-field"><span>Ngày bắt đầu</span><b>${esc(r.NgayBatDau)||"—"}</b></div>
+    <div class="modal-field"><span>Ngày hoàn thành</span><b>${esc(r.NgayHoanThanh)||"—"}</b></div>
+    <div class="modal-field"><span>Trạng thái</span>${statusBadge(r.TrangThai)}</div>
+    <div class="modal-field"><span>Hồ sơ phải nộp</span>${formatHoSoNop(r.HoSoPhaiNop)}</div>
+  `;
+  document.getElementById("taskModal").classList.add("open");
+}
+
+function closeLichModal(){
+  document.getElementById("taskModal").classList.remove("open");
+}
+
+/* ---------- LIÊN HỆ ---------- */
+async function renderLienHe(sec){
+  sec.innerHTML = `<div class="loading">Đang tải dữ liệu...</div>`;
+  const staff = await fetchSheet(CONFIG.SHEETS.thanhvien).catch(()=>[]);
+  staff.sort((a,b)=>(Number(a.ThuTuHienThi)||99)-(Number(b.ThuTuHienThi)||99));
+
+  const DIA_CHI = "06 Cầm Bá Thước, phường Cầu Kiệu, Thành phố Hồ Chí Minh";
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(DIA_CHI)}&output=embed`;
+
+  const PHONE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
+  const MAIL_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>`;
+
+  const directoryHtml = staff.length ? staff.map(s=>`
+    <div class="contact-card">
+      <div class="staff-photo" style="${s.AnhDaiDien ? `background-image:url('${esc(driveThumb(s.AnhDaiDien))}')` : ''}">${s.AnhDaiDien ? '' : 'Chưa có ảnh'}</div>
+      <div class="cc-body">
+        <div class="cc-name">${esc(s.HoTen)}</div>
+        <div class="cc-role">${esc(s.ChucVu)}</div>
+        <div class="cc-links">
+          ${s.SoDienThoai ? `<a href="tel:${esc(s.SoDienThoai)}">${PHONE_ICON}${esc(s.SoDienThoai)}</a>` : ""}
+          ${s.Email ? `<a href="mailto:${esc(s.Email)}">${MAIL_ICON}${esc(s.Email)}</a>` : ""}
+        </div>
+      </div>
+    </div>
+  `).join("") : `<div class="empty">Chưa có dữ liệu nhân sự trong sheet ThanhVienUBKT.</div>`;
+
+  sec.innerHTML = `
+    <p class="lede">Thông tin liên hệ của Ủy ban Kiểm tra Đảng ủy phường Cầu Kiệu và danh bạ liên hệ trực tiếp từng thành viên.</p>
+
+    <div class="contact-hero">
+      <div class="contact-info">
+        <h3>Thông tin liên hệ</h3>
+        <dl>
+          <div><dt>Tên cơ quan</dt><dd>Ủy ban Kiểm tra Đảng ủy phường Cầu Kiệu</dd></div>
+          <div><dt>Địa chỉ trụ sở</dt><dd>${esc(DIA_CHI)}</dd></div>
+          <div><dt>Giờ làm việc</dt><dd>Thứ Hai – Thứ Sáu, 7:30 – 11:30 và 13:30 – 17:00</dd></div>
+        </dl>
+      </div>
+      <div class="contact-map">
+        <iframe src="${mapSrc}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ trụ sở UBKT"></iframe>
+      </div>
+    </div>
+
+    <p class="section-label">Danh bạ liên hệ thành viên</p>
+    <div class="contact-directory">
+      ${directoryHtml}
+    </div>
+  `;
+}
+
+/* ---------- BÁO CÁO 2 CHIỀU ---------- */
+let bcData = {ky:[], chibo:[], baocao:[]};
+
+async function loadBaoCaoData(force){
+  if(force){
+    delete loaded[CONFIG.SHEETS.kybaocao];
+    delete loaded[CONFIG.SHEETS.danhsachchibo];
+    delete loaded[CONFIG.SHEETS.baocao];
+  }
+  const [ky, chibo, baocao] = await Promise.all([
+    fetchSheet(CONFIG.SHEETS.kybaocao).catch(()=>[]),
+    fetchSheet(CONFIG.SHEETS.danhsachchibo).catch(()=>[]),
+    fetchSheet(CONFIG.SHEETS.baocao).catch(()=>[]),
+  ]);
+  bcData = {ky, chibo, baocao};
+  return bcData;
+}
+
+async function renderBaoCao(sec){
+  await loadBaoCaoData(false);
+  sec.innerHTML = `
+    <p class="lede">Chi bộ tải mẫu và nộp báo cáo bằng file PDF trực tiếp trên web. UBKT theo dõi tình trạng nộp báo cáo của từng chi bộ theo từng kỳ.</p>
+    <div class="toolbar">
+      <div class="view-toggle">
+        <button id="bc-view-gui" class="active">Gửi báo cáo</button>
+        <button id="bc-view-theodoi">Theo dõi nộp báo cáo</button>
+      </div>
+    </div>
+    <div id="bc-gui-view"></div>
+    <div id="bc-theodoi-view" style="display:none"></div>
+  `;
+
+  drawBaoCaoGui();
+  drawBaoCaoTheoDoi();
+
+  document.getElementById("bc-view-gui").onclick = ()=>{
+    document.getElementById("bc-view-gui").classList.add("active");
+    document.getElementById("bc-view-theodoi").classList.remove("active");
+    document.getElementById("bc-gui-view").style.display = "";
+    document.getElementById("bc-theodoi-view").style.display = "none";
+  };
+  document.getElementById("bc-view-theodoi").onclick = ()=>{
+    document.getElementById("bc-view-theodoi").classList.add("active");
+    document.getElementById("bc-view-gui").classList.remove("active");
+    document.getElementById("bc-theodoi-view").style.display = "";
+    document.getElementById("bc-gui-view").style.display = "none";
+  };
+
+  pageRedraw.baocao = ()=>{ drawBaoCaoGui(); drawBaoCaoTheoDoi(); };
+}
+
+function drawBaoCaoGui(){
+  const {ky, chibo} = bcData;
+  const wrap = document.getElementById("bc-gui-view");
+  if(!ky.length){
+    wrap.innerHTML = `<div class="empty">Chưa có kỳ báo cáo nào. UBKT cần nhập trực tiếp vào sheet "KyBaoCao".</div>`;
+    return;
+  }
+  const kyRowsHtml = ky.map(k=>`
+    <tr>
+      <td><strong>${esc(k.Ky)}</strong></td>
+      <td class="ky-noidung">${k.NoiDung ? esc(k.NoiDung) : "—"}</td>
+      <td>${k.HanNop ? esc(k.HanNop) : "—"}</td>
+      <td>${k.LinkMauBaoCao ? `<a class="icon-btn" href="${esc(k.LinkMauBaoCao)}" target="_blank">${ICONS.download}Tải mẫu báo cáo</a>` : `<span style="color:var(--ink-soft);font-size:12px">Chưa có mẫu</span>`}</td>
+    </tr>
+  `).join("");
+
+  wrap.innerHTML = `
+    <div class="card" style="margin-bottom:18px">
+      <h4 class="serif" style="margin:0 0 14px">Kỳ báo cáo</h4>
+      <div class="ky-scroll">
+        <table><thead><tr><th>Tên kỳ</th><th>Nội dung</th><th>Hạn nộp</th><th>Mẫu báo cáo</th></tr></thead>
+        <tbody>${kyRowsHtml}</tbody></table>
+      </div>
+    </div>
+    <div class="card" style="max-width:520px">
+      <h4 class="serif" style="margin:0 0 14px">Nộp báo cáo</h4>
+      <div class="rp-field"><label>Kỳ báo cáo</label>
+        <select id="bc-sel-ky">${ky.map(k=>`<option value="${esc(k.Ky)}">${esc(k.Ky)}</option>`).join("")}</select>
+      </div>
+      <div class="rp-field"><label>Chi bộ</label>
+        <select id="bc-sel-chibo">${chibo.length ? chibo.map(c=>`<option value="${esc(c.TenChiBo)}">${esc(c.TenChiBo)}</option>`).join("") : `<option value="">Chưa có danh sách chi bộ</option>`}</select>
+      </div>
+      <div class="rp-field"><label>File báo cáo (PDF)</label>
+        <input type="file" id="bc-file" accept="application/pdf">
+      </div>
+      <button class="icon-btn" id="bc-btn-submit">${ICONS.upload}Gửi báo cáo</button>
+      <div id="bc-submit-msg" class="rp-msg"></div>
+    </div>
+  `;
+
+  document.getElementById("bc-btn-submit").onclick = async ()=>{
+    const kyVal = document.getElementById("bc-sel-ky").value;
+    const chiboVal = document.getElementById("bc-sel-chibo").value;
+    const fileInput = document.getElementById("bc-file");
+    const msg = document.getElementById("bc-submit-msg");
+    const btn = document.getElementById("bc-btn-submit");
+    msg.className = "rp-msg"; msg.textContent = "";
+    if(!kyVal || !chiboVal){ msg.className="rp-msg err"; msg.textContent="Vui lòng chọn đầy đủ kỳ báo cáo và chi bộ."; return; }
+    const file = fileInput.files[0];
+    if(!file){ msg.className="rp-msg err"; msg.textContent="Vui lòng chọn file PDF báo cáo."; return; }
+    if(file.type !== "application/pdf"){ msg.className="rp-msg err"; msg.textContent="Chỉ chấp nhận file định dạng PDF."; return; }
+    btn.disabled = true;
+    msg.className = "rp-msg"; msg.textContent = "Đang gửi báo cáo, vui lòng chờ...";
+    try{
+      const base64 = await fileToBase64(file);
+      await postToAppsScript({
+        action: "submitReport",
+        ky: kyVal,
+        tenChiBo: chiboVal,
+        fileName: file.name,
+        mimeType: file.type,
+        fileBase64: base64,
+      });
+      msg.textContent = "Đã gửi, đang xác nhận với máy chủ...";
+      // Chờ Apps Script xử lý xong rồi tải lại sheet BaoCao để xác minh dòng đã được ghi
+      // (bắt buộc vì mode "no-cors" không cho đọc phản hồi JSON trả về).
+      let confirmed = false;
+      for(let attempt=0; attempt<4 && !confirmed; attempt++){
+        await new Promise(r=>setTimeout(r, 1800));
+        await loadBaoCaoData(true);
+        confirmed = bcData.baocao.some(b=>b.Ky===kyVal && b.TenChiBo===chiboVal && b.LinkFilePDF);
+      }
+      if(confirmed){
+        msg.className = "rp-msg ok";
+        msg.textContent = "Đã gửi báo cáo thành công.";
+        fileInput.value = "";
+      }else{
+        msg.className = "rp-msg err";
+        msg.textContent = "Chưa xác nhận được báo cáo đã lưu vào hệ thống. Vui lòng kiểm tra lại sheet BaoCao trên Google Sheet, hoặc thử gửi lại sau ít phút.";
+      }
+      drawBaoCaoTheoDoi();
+    }catch(e){
+      msg.className = "rp-msg err";
+      msg.textContent = "Gửi báo cáo thất bại: " + e.message;
+    }finally{
+      btn.disabled = false;
+    }
+  };
+}
+
+function computeTrangThaiBaoCao(kyRow, submitted){
+  if(submitted && submitted.NgayNop) return "Đã nộp";
+  const han = kyRow && kyRow.HanNop ? parseVNDate(kyRow.HanNop) : null;
+  if(han && new Date() > han) return "Trễ hạn";
+  return "Chưa đến hạn";
+}
+
+function drawBaoCaoTheoDoi(){
+  const {ky, chibo, baocao} = bcData;
+  const wrap = document.getElementById("bc-theodoi-view");
+  if(!ky.length){
+    wrap.innerHTML = `<div class="empty">Chưa có kỳ báo cáo nào.</div>`;
+    return;
+  }
+  wrap.innerHTML = `
+    <div class="toolbar">
+      <select class="filter" id="bc-td-ky">${ky.map(k=>`<option value="${esc(k.Ky)}">${esc(k.Ky)}</option>`).join("")}</select>
+    </div>
+    <div id="bc-td-summary" class="rp-summary"></div>
+    <div id="bc-td-table"></div>
+  `;
+  const draw = ()=>{
+    const kyVal = document.getElementById("bc-td-ky").value;
+    const kyRow = ky.find(k=>k.Ky===kyVal);
+    const q = getSearchQuery();
+    const list = (chibo.length ? chibo.map(c=>c.TenChiBo) : [...new Set(baocao.filter(b=>b.Ky===kyVal).map(b=>b.TenChiBo))])
+      .filter(name=>matchAny([name], q));
+    let daNop=0, treHan=0, chuaDen=0;
+    const rowsHtml = list.map(name=>{
+      const submitted = baocao.find(b=>b.Ky===kyVal && b.TenChiBo===name);
+      const st = computeTrangThaiBaoCao(kyRow, submitted);
+      if(st==="Đã nộp") daNop++; else if(st==="Trễ hạn") treHan++; else chuaDen++;
+      return {name, submitted, st};
+    });
+    const submittedRows = rowsHtml.filter(r=>r.st==="Đã nộp").map(r=>`<tr>
+        <td><strong>${esc(r.name)}</strong></td>
+        <td>${statusBadge(r.st)}</td>
+        <td>${r.submitted && r.submitted.NgayNop ? esc(r.submitted.NgayNop) : "—"}</td>
+        <td>${r.submitted && r.submitted.LinkFilePDF ? `<a class="icon-btn" href="${esc(r.submitted.LinkFilePDF)}" target="_blank">${ICONS.external}Xem PDF</a>` : "—"}</td>
+      </tr>`).join("");
+    document.getElementById("bc-td-summary").innerHTML = `
+      <span class="chip">Đã nộp: <b>${daNop}</b>/${list.length}</span>
+      <span class="chip">Trễ hạn: <b>${treHan}</b></span>
+      <span class="chip">Chưa đến hạn: <b>${chuaDen}</b></span>
+      ${kyRow && kyRow.HanNop ? `<span class="chip">Hạn nộp: <b>${esc(kyRow.HanNop)}</b></span>` : ""}
+    `;
+    document.getElementById("bc-td-table").innerHTML = daNop>0 ? `
+      <table><thead><tr><th>Chi bộ</th><th>Trạng thái</th><th>Ngày nộp</th><th></th></tr></thead>
+      <tbody>${submittedRows}</tbody></table>
+    ` : `<div class="empty">Chưa có chi bộ nào nộp báo cáo cho kỳ này.</div>`;
+  };
+  document.getElementById("bc-td-ky").onchange = draw;
+  draw();
+}
+
+function fileToBase64(file){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = ()=> resolve(String(reader.result).split(",")[1] || "");
+    reader.onerror = ()=> reject(new Error("Không đọc được file."));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function postToAppsScript(payload){
+  if(!CONFIG.APPS_SCRIPT_URL){
+    throw new Error("Chưa cấu hình APPS_SCRIPT_URL trong CONFIG (xem hướng dẫn triển khai Google Apps Script).");
+  }
+  // Apps Script Web App chuyển hướng (redirect) sang script.googleusercontent.com khi
+  // gọi cross-origin; ở một số trình duyệt/mạng, bước redirect này bị chặn và báo
+  // nhầm thành lỗi 401 dù quyền truy cập đã đúng. Dùng mode "no-cors" để việc GỬI dữ
+  // liệu không bị chặn bởi giới hạn này (không đọc được nội dung phản hồi trả về,
+  // nhưng dữ liệu vẫn được Apps Script xử lý và ghi vào Sheet/Drive bình thường).
+  try{
+    await fetch(CONFIG.APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify(payload),
+    });
+  }catch(e){
+    throw new Error("Không kết nối được tới máy chủ. Kiểm tra mạng và URL Apps Script.");
+  }
+  return { ok: true, unverified: true };
+}
+
+function parseVNDate(s){
+  // expects dd/mm/yyyy
+  if(!s) return null;
+  const parts = String(s).split(/[\/\-]/);
+  if(parts.length<3) return null;
+  const [d,m,y] = parts;
+  const dt = new Date(Number(y), Number(m)-1, Number(d));
+  return isNaN(dt) ? null : dt;
+}
+
+function buildCalendar(rows, year, month, q){
+  // month: 1-12
+  const first = new Date(year, month-1, 1);
+  const startDow = first.getDay();
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const byDay = {};
+  rows.forEach((r,idx)=>{
+    const dt = parseVNDate(r.NgayHoanThanh);
+    if(dt && dt.getFullYear()===year && dt.getMonth()===month-1){
+      if(q && !matchAny([r.TenNhiemVu, r.NguoiPhuTrach, r.DonViThucHien, r.HoSoPhaiNop], q)) return;
+      const d = dt.getDate();
+      (byDay[d] = byDay[d]||[]).push({idx, name: r.TenNhiemVu});
+    }
+  });
+  const dows = ["CN","T2","T3","T4","T5","T6","T7"];
+  let cells = dows.map(d=>`<div class="cal-dow">${d}</div>`).join("");
+  for(let i=0;i<startDow;i++) cells += `<div class="cal-cell empty"></div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    const tasks = byDay[d]||[];
+    cells += `<div class="cal-cell"><div class="d">${d}</div>${tasks.slice(0,3).map(t=>`<div class="cal-task" onclick="showTaskDetailInline(${t.idx})">${esc(t.name)}</div>`).join("")}${tasks.length>3?`<div style="font-size:9.5px;color:var(--ink-soft)">+${tasks.length-3} khác</div>`:""}</div>`;
+  }
+  return `<p class="section-label">Tháng ${month}/${year} — nhiệm vụ theo ngày hoàn thành</p><div class="cal-grid">${cells}</div>`;
+}
+
+/* ---------- ĐỒNG HỒ THỜI GIAN THỰC ---------- */
+const DOW_VN = ["Chủ nhật","Thứ Hai","Thứ Ba","Thứ Tư","Thứ Năm","Thứ Sáu","Thứ Bảy"];
+function pad(n){ return String(n).padStart(2,"0"); }
+function updateClock(){
+  const now = new Date();
+  const dow = DOW_VN[now.getDay()];
+  const ds = `${dow}, ${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+  const ts = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  document.getElementById("clockText").innerHTML = `${ds} &nbsp;·&nbsp; <b>${ts}</b>`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+/* Init */
+renderHome(document.getElementById("page-home"));
+</script>
+</body>
+</html>
